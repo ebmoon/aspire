@@ -1,6 +1,6 @@
 variables {
-    PosInt M;
-    hidden int h;
+    int M <- PosIEX;
+    hidden int h <- IEX;
     ArrayList S;
     boolean collide;
     boolean ok;
@@ -11,15 +11,15 @@ signatures {
 }
 
 language {
-    boolean B0 -> (ok == 1) && B;
+    boolean B0 -> ok && B;
     boolean B -> false | AP | AP && AP | AP && AP && AP;
-    boolean AP -> isPrime(M) | !isPrime(M) | N == N | N != N | N < N | N <= N | collide == true | collide == false;
-    int N -> setsize(S) | setsizemod(S, M) | 0 | 1 | getData(M) ;
+    boolean AP -> isPrime(M) | !isPrime(M) | N == N | N != N | N < N | N <= N | collide | !collide;
+    int N -> setsize(S) | setsizemod(S, M) | 0 | 1 | M ;
 }
 
 examples {
     int IEX  -> ??(4) - 8;
-    PosInt PosIntEX-> genPosInt();
+    int PosIEX -> ??(3) + 2;
     ArrayList ALEX-> newArrayList() | add(ALEX, IEX);
     boolean BEX-> true | false;
 }

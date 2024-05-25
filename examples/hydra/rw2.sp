@@ -13,9 +13,9 @@ signatures {
 language {
     boolean B0 -> valid && B;
     boolean B -> false | AP | AP && AP | AP && AP && AP;
-    boolean AP -> IsPowerOf2(N) | N == N;
+    boolean AP -> N == N;
     int N -> N1 | N1 * N1 | log2(N1);
-    int N1 -> C | 1 | 0;
+    int N1 -> C | 0 | 1 | 2;
 }
 
 examples {

@@ -9,9 +9,10 @@ signatures {
 }
 
 language {
-    boolean B -> false | AP | AP && AP | AP && AP && AP;
-    boolean AP -> I < I | I == I | I <= I | I != I;
-    int I -> x | y | 0;
+    boolean AP -> N < C | N == C | N <= C | N != C | N > C | N >= C;
+    int N -> I | I + I | I - I;
+    int I -> x | xout;
+    int C -> 0 | 1 | 2;
 }
 
 examples {
