@@ -23,6 +23,7 @@ import spyro.compiler.parser.SpyroParser;
 import spyro.synthesis.*;
 import spyro.synthesis.main.cmdline.SpyroOptions;
 import spyro.synthesis.primitives.*;
+import spyro.util.SketchHelper;
 import spyro.util.exceptions.ParseException;
 
 import java.io.*;
@@ -32,10 +33,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.lang.Math.max;
 
@@ -47,10 +45,11 @@ import static java.lang.Math.max;
  *
  * @author Kanghee Park &lt;khpark@cs.wisc.edu&gt;
  */
-public class Spyro extends SequentialSketchMain {
+public class Spyro{
     public static boolean isDebug = false;
     public boolean isVerbose;
     public boolean isSketchVerbose;
+    public SketchHelper sketchHelper;
     public SpyroOptions options;
 
     private CommonSketchBuilder commonSketchBuilder;
@@ -68,6 +67,7 @@ public class Spyro extends SequentialSketchMain {
     private HiddenWitnessSketchBuilder hiddenWitness;
     private HiddenValueSet hSet;
     private Map<String, Function> lambdaFunctions;
+    private List<Property> unsoundProperties;
     long timeSoundness;
     int numSoundness;
     long timePrecision;
@@ -86,12 +86,10 @@ public class Spyro extends SequentialSketchMain {
     final private PrintStream oldOut = System.out;
 
     public Spyro(String[] args) {
-        super(new SpyroOptions(args));
-        this.options = (SpyroOptions) super.options;
+        this.options = new SpyroOptions(args);
+        this.sketchHelper = new SketchHelper(options);
         this.isVerbose = this.options.debugOpts.verbosity > 1;
-        this.isSketchVerbose = this.options.debugOpts.verbosity > 2;
-        if (isSketchVerbose)
-            this.options.debugOpts.verbosity = this.options.debugOpts.verbosity - 1;
+        this.unsoundProperties = new ArrayList<>();
 
         PlatformLocalization.getLocalization().setTempDirs();
         Path tempPath = Paths.get(tempFileDir);
@@ -104,31 +102,6 @@ public class Spyro extends SequentialSketchMain {
         }
     }
 
-    void redirectStderrToNull() {
-        System.setErr(new PrintStream(new OutputStream() {
-            @Override
-            public void write(int b) {
-                // DO NOTHING
-            }
-        }));
-    }
-
-    void redirectStdoutToNull() {
-        System.setOut(new PrintStream(new OutputStream() {
-            @Override
-            public void write(int b) {
-                // DO NOTHING
-            }
-        }));
-    }
-
-    void restoreStderr() {
-        System.setErr(oldErr);
-    }
-
-    void restoreStdout() {
-        System.setOut(oldOut);
-    }
 
     String getNewTempFilePath() {
         return tempFileDir + String.format("/%d_%d.sk", outerIterator, innerIterator);
@@ -170,58 +143,18 @@ public class Spyro extends SequentialSketchMain {
         SpyroParser parser = new SpyroParser(tokens);
 
         BuildAstVisitor visitor = new BuildAstVisitor();
-        Query query = visitor.visitParse(parser.parse());
 
-        return query;
-    }
-
-    private SynthesisResult runSketchSolver(Program prog) {
-        if (options.debugOpts.dumpSketch) {
-            File path = new File(getNewTempFilePath());
-            prog.debugDump(path);
-        }
-
-        prog = preprocAndSemanticCheck(prog);
-
-        // Redirect error message to null from sketch-backend
-        if (!isVerbose)
-            redirectStderrToNull();
-
-        if (!isSketchVerbose)
-            redirectStdoutToNull();
-
-        SynthesisResult result;
-        try {
-            result = partialEvalAndSolve(prog);
-        } catch (SketchNotResolvedException e) {
-            result = null;
-        }
-
-        // Restore stderr so that user can see spyro error message
-        if (!isVerbose)
-            restoreStderr();
-
-        if (!isSketchVerbose)
-            restoreStdout();
-
-        innerIterator++;
-
-        return result;
-    }
-
-    private Program simplifySynthResult(SynthesisResult synthResult) {
-        Program finalCleaned = synthResult.lowered.highLevelC;
-        Program substituted = (new SubstituteSolution(varGen, options, synthResult.solution))
-                .visitProgram(finalCleaned);
-        return (new CleanupFinalCode(varGen, options, visibleRControl(finalCleaned)))
-                .visitProgram(substituted);
+        return visitor.visitParse(parser.parse());
     }
 
     private Program runAndSimplify(Program sketchCode) {
-        SynthesisResult synthResult = runSketchSolver(sketchCode);
-        if (synthResult != null && synthResult.solution != null) {
-            return simplifySynthResult(synthResult);
-        } else return null;
+        if (options.debugOpts.dumpSketch) {
+            File path = new File(getNewTempFilePath());
+            sketchCode.debugDump(path);
+        }
+        Program result = sketchHelper.runAndSimplify(sketchCode);
+        innerIterator++;
+        return result;
     }
 
     public Example checkSoundness(Property phi) {
@@ -232,8 +165,10 @@ public class Spyro extends SequentialSketchMain {
         Program sketchCode = soundness.soundnessSketchCode(phi, lambdaFunctions.values());
         Program substitutedCleaned = runAndSimplify(sketchCode);
         Example ret = null;
-        if (substitutedCleaned != null)
+        if (substitutedCleaned != null) {
             ret = ResultExtractor.extractPositiveExample(substitutedCleaned);
+            unsoundProperties.add(phi);
+        }
         if (isVerbose) System.out.println(ret == null ? "Sound." : "Unsound.");
         timeSoundness += System.currentTimeMillis() - startTime;
         return ret;
@@ -541,7 +476,7 @@ public class Spyro extends SequentialSketchMain {
         }
     }
 
-    public PropertySet synthesizeOverProperties(PropertySet psiInit) {
+    public PropertiesSynthesisResult synthesizeOverProperties(PropertySet psiInit) {
         PropertySet psi = new PropertySet(commonSketchBuilder);
         ExampleSet pos = new ExampleSet();
         ExampleSet negMust;
@@ -564,7 +499,7 @@ public class Spyro extends SequentialSketchMain {
                 if (neg != null) {
                     negMust = new ExampleSet(Collections.singletonList(neg));
                 } else {
-                    return psi;
+                    return new PropertiesSynthesisResult(psi, pos, negMust);
                 }
             }
 
@@ -583,7 +518,7 @@ public class Spyro extends SequentialSketchMain {
         }
     }
 
-    public PropertySet synthesizeUnderProperties(PropertySet psiInit) {
+    public PropertiesSynthesisResult synthesizeUnderProperties(PropertySet psiInit) {
         PropertySet psi = new PropertySet(commonSketchBuilder);
         ExampleSet posMust;
         ExampleSet neg = new ExampleSet();
@@ -606,7 +541,7 @@ public class Spyro extends SequentialSketchMain {
                 if (pos != null) {
                     posMust = new ExampleSet(Collections.singletonList(pos));
                 } else {
-                    return psi;
+                    return new PropertiesSynthesisResult(psi, posMust, neg);
                 }
             }
 
@@ -632,7 +567,7 @@ public class Spyro extends SequentialSketchMain {
         Query query;
         try {
             query = parseSpyroQuery();
-            prog = parseProgram();
+            prog = sketchHelper.parseProg();
         } catch (RecognitionException | TokenStreamException | IOException e) {
             throw new ParseException("could not parse program");
         }
@@ -687,14 +622,20 @@ public class Spyro extends SequentialSketchMain {
         falsity = Property.falsity(params);
 
         PropertySet psi = new PropertySet(commonSketchBuilder);
-        PropertySet properties = options.synthOpts.under ? synthesizeUnderProperties(psi) : synthesizeOverProperties(psi);
+        PropertiesSynthesisResult result = options.synthOpts.under ? synthesizeUnderProperties(psi) : synthesizeOverProperties(psi);
 
         long elapsedTime = System.currentTimeMillis() - startTime;
-        RunningResults results = new RunningResults(options.synthOpts.under, properties, lambdaFunctions, grammarSize, elapsedTime, timeSoundness, numSoundness, timePrecision, numPrecision, timeSynthesis, numSynthesis, maxHiddenSize);
+        RunningResults outputInfo = new RunningResults(options.synthOpts.under, result.props, lambdaFunctions, grammarSize, elapsedTime, timeSoundness, numSoundness, timePrecision, numPrecision, timeSynthesis, numSynthesis, maxHiddenSize);
+
+        if (options.synthOpts.abd)
+            for (Property phi : unsoundProperties) {
+                System.out.println(phi.toSketchCode());
+                System.out.println(phi.getImpl().getBody());
+            }
 
         if (!options.debugOpts.noDisplayResults)
-            System.out.println(results);
-        return results;
+            System.out.println(outputInfo);
+        return outputInfo;
     }
 
 
@@ -709,4 +650,17 @@ public class Spyro extends SequentialSketchMain {
             this.neg = neg;
         }
     }
+
+    public class PropertiesSynthesisResult {
+        PropertySet props;
+        ExampleSet pos;
+        ExampleSet neg;
+
+        public PropertiesSynthesisResult(PropertySet props, ExampleSet pos, ExampleSet neg) {
+            this.props = props;
+            this.pos = pos;
+            this.neg = neg;
+        }
+    }
+
 }

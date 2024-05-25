@@ -38,6 +38,10 @@ public class SoundnessOverSketchBuilder {
             stmts.add(commonBuilder.getVariableDecls(CommonSketchBuilder.ONLY_OUTPUT,CommonSketchBuilder.WO_INIT));
             stmts.addAll(commonBuilder.getSignatureAsStmts());
 
+            // assert(rel_conj);
+            stmts.addAll(commonBuilder.getRelationAsStmts());
+            stmts.add(new StmtAssert(new ExprVar((FENode) null, CommonSketchBuilder.relationConjunctionId), false));
+
             final String tempVarID = "out";
             final String phi = Property.phiID;
             ExprVar tempVar = new ExprVar((FENode) null, tempVarID);

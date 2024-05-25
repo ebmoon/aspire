@@ -29,6 +29,10 @@ public class Property {
         this.impl = impl;
     }
 
+    public Function getImpl() {
+        return impl;
+    }
+
     public static Property truth(List<Parameter> params) {
         Function.FunctionCreator fc = Function.creator((FENode) null, phiID, Function.FcnType.Static);
         ExprVar outputParamVar = new ExprVar((FENode) null, params.get(params.size() - 1).getName());

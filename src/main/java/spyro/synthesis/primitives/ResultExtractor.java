@@ -220,9 +220,11 @@ public class ResultExtractor {
             }
         }
 
-//         assert(!(asp && out_1 && out_2 && ...))
-        stmts.addAll(builder.getAssumptionAsStmts());
-        Expression assertCondition = new ExprVar((FENode) null, CommonSketchBuilder.assumpitonConjunctionId);
+        // Add relations
+        stmts.addAll(builder.getRelationAsStmts());
+
+//      assert(!(rel_conj && out_1 && out_2 && ...))
+        Expression assertCondition = new ExprVar((FENode) null, CommonSketchBuilder.relationConjunctionId);
         for (String Id : tempVarIdList)
             assertCondition = new ExprBinary(ExprBinary.BINOP_AND, assertCondition, new ExprVar((FENode) null, Id));
         assertCondition = new ExprUnary((FENode) null, ExprUnary.UNOP_NOT, assertCondition);

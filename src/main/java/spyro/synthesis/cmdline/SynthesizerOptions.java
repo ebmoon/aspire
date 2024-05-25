@@ -22,6 +22,9 @@ public class SynthesizerOptions extends CliAnnotatedOptionGroup {
     @CliParameter(help = "Do not reuse set of hidden variables for counterexample-guided quantifier elimination")
     public boolean noReuseHidden = false;
 
+    @CliParameter(help = "Collect unsound properties and do abduction synthesis")
+    public boolean abd = false;
+
     public SynthesizerOptions() {
         super("synth", "options for property synthesis loop");
     }

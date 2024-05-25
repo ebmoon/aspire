@@ -1,6 +1,9 @@
 package spyro.synthesis.primitives;
 
-import sketch.compiler.ast.core.*;
+import sketch.compiler.ast.core.FENode;
+import sketch.compiler.ast.core.Function;
+import sketch.compiler.ast.core.Parameter;
+import sketch.compiler.ast.core.Program;
 import sketch.compiler.ast.core.exprs.Expression;
 import sketch.compiler.ast.core.exprs.*;
 import sketch.compiler.ast.core.stmts.*;
@@ -32,7 +35,7 @@ public class CommonSketchBuilder implements SpyroNodeVisitor {
     public final static String equalityOperatorSuffix = "_equal";
     public final static String assumptionOutVarPrefix = "asp_out_";
     public final static String assumpitonConjunctionId = "asp_conj";
-
+    public final static String relationConjunctionId = "rel_conj";
     public final boolean isUnderProblem;
     Program prog;
     Program impl;
@@ -44,6 +47,8 @@ public class CommonSketchBuilder implements SpyroNodeVisitor {
 
     List<ExprFunCall> signatures;
     List<Statement> signatureAsStmts;
+    List<ExprFunCall> relations;
+    List<Statement> relationAsStmts;
     List<ExprFunCall> assumptions;
     List<Statement> assumptionAsStmts;
 
@@ -99,9 +104,6 @@ public class CommonSketchBuilder implements SpyroNodeVisitor {
                 params.add(var);
                 stmts.add(new StmtExpr((FENode) null, new ExprFunCall((FENode) null, asp.getName(), params)));
                 exprs.add(var);
-//                stmts.add(new StmtAssume((FENode) null,
-//                        new ExprVar((FENode) null, varId),
-//                        "asp" + i));
             }
 
             Expression aspConj = ExprConstInt.one;
@@ -117,6 +119,36 @@ public class CommonSketchBuilder implements SpyroNodeVisitor {
         }
         return assumptionAsStmts;
     }
+
+    public List<Statement> getRelationAsStmts() {
+        if (relationAsStmts == null) {
+            List<Statement> stmts = new ArrayList<>();
+            List<Expression> exprs = new ArrayList<>();
+            for (int i = 0, sz = relations.size(); i < sz; i++) {
+                ExprFunCall rel = relations.get(i);
+                String varId = "out_" + rel.getName();
+                ExprVar var = new ExprVar((FENode) null, varId);
+                stmts.add(new StmtVarDecl((FENode) null, sketch.compiler.ast.core.typs.TypePrimitive.bittype, varId, null));
+
+                List<Expression> params = new ArrayList<>(rel.getParams());
+                params.add(var);
+                stmts.add(new StmtExpr((FENode) null, new ExprFunCall((FENode) null, rel.getName(), params)));
+
+                exprs.add(var);
+            }
+            Expression relConj = ExprConstInt.one;
+            if (!exprs.isEmpty()) {
+                relConj = exprs.get(0);
+                for (int i = 1; i < exprs.size(); i++) {
+                    relConj = new sketch.compiler.ast.core.exprs.ExprBinary(sketch.compiler.ast.core.exprs.ExprBinary.BINOP_AND, relConj, exprs.get(i));
+                }
+            }
+            stmts.add(new StmtVarDecl((FENode) null, sketch.compiler.ast.core.typs.TypePrimitive.bittype, relationConjunctionId, relConj));
+            relationAsStmts = stmts;
+        }
+        return relationAsStmts;
+    }
+
 
     public List<Function> getPropertyGenerators() {
         return propertyGenerators;
@@ -282,9 +314,9 @@ public class CommonSketchBuilder implements SpyroNodeVisitor {
                 if (sz != params.size())
                     throw new SketchConversionException("Number of parameters mismatch for " + sig.getName() + "().");
                 for (int i = 0; i < sz; i++)
-                    if(params.get(i).getPtype() == Parameter.REF)
+                    if (params.get(i).getPtype() == Parameter.REF)
                         outputVariableSet.add(args.get(i).toString());
-                return ;
+                return;
             }
         throw new SketchConversionException("Cannot find implementation for " + sig.getName() + "().");
     }
@@ -310,6 +342,10 @@ public class CommonSketchBuilder implements SpyroNodeVisitor {
                 .collect(Collectors.toList());
         signatureAsStmts = signatures.stream()
                 .map(sig -> new StmtExpr((FENode) null, sig))
+                .collect(Collectors.toList());
+
+        relations = q.getRelations().stream()
+                .map(sig -> (ExprFunCall) sig.accept(this))
                 .collect(Collectors.toList());
 
         assumptions = q.getAssumptions().stream()
