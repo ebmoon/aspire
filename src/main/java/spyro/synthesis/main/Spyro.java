@@ -64,6 +64,7 @@ public class Spyro{
     private PrecisionUnderSketchBuilder precisionUnder;
     private PrecisionUnderSketchBuilder precisionUnderMin;
     private ImprovementSketchBuilder improvement;
+    private ModelSatisficationSketchBuilder modelSatisfication;
     private HiddenWitnessSketchBuilder hiddenWitness;
     private HiddenValueSet hSet;
     private Map<String, Function> lambdaFunctions;
@@ -560,6 +561,28 @@ public class Spyro{
         }
     }
 
+    public List<Pair<Property, Integer>> sortUnsoundProperties(List<Property> props, List<Example> pos) {
+        List<Pair<Property,Integer>> ret = new ArrayList<>();
+        for(Property phi: props) {
+            int cnt = 0;
+            for(Example ex: pos) {
+                if(checkModelSatisfication(phi, ex)) cnt++;
+            }
+            ret.add(new Pair<>(phi, cnt));
+        }
+        ret.sort((pair1, pair2) -> pair2.getSecond().compareTo(pair1.getSecond()));
+        return ret;
+    }
+
+    public boolean checkModelSatisfication(Property phi, Example ex) {
+        Program sketchCode = modelSatisfication.modelSatisficationCode(phi, ex, lambdaFunctions.values());
+        Program substitutedCleaned = runAndSimplify(sketchCode);
+        if (substitutedCleaned != null) // sat
+            return true;
+        else // unsat
+            return false;
+    }
+
     public RunningResults solve() {
         long startTime = System.currentTimeMillis();
 
@@ -613,6 +636,8 @@ public class Spyro{
 
         improvement = new ImprovementSketchBuilder(commonSketchBuilder);
 
+        modelSatisfication = new ModelSatisficationSketchBuilder(commonSketchBuilder);
+
         lambdaFunctions = new HashMap<>();
 
         hSet = new HiddenValueSet();
@@ -627,11 +652,19 @@ public class Spyro{
         long elapsedTime = System.currentTimeMillis() - startTime;
         RunningResults outputInfo = new RunningResults(options.synthOpts.under, result.props, lambdaFunctions, grammarSize, elapsedTime, timeSoundness, numSoundness, timePrecision, numPrecision, timeSynthesis, numSynthesis, maxHiddenSize);
 
-        if (options.synthOpts.abd)
+        if (options.synthOpts.abd) {
             for (Property phi : unsoundProperties) {
-                System.out.println(phi.toSketchCode());
                 System.out.println(phi.getImpl().getBody());
             }
+
+            for(Example ex: result.pos.getExamples()) {
+                System.out.println(ex.getBody());
+            }
+            List<Pair<Property, Integer>> unsoundList = sortUnsoundProperties(unsoundProperties, result.pos.getExamples());
+            for(Pair<Property, Integer> pair: unsoundList) {
+                System.out.printf("passed examples: %d\n", pair.getSecond());
+            }
+        }
 
         if (!options.debugOpts.noDisplayResults)
             System.out.println(outputInfo);

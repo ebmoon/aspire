@@ -34,6 +34,10 @@ public class Example {
         return varList;
     }
 
+    public StmtBlock getBody() {
+        return body;
+    }
+
     public Example(StmtBlock body) {
         this.body = body;
     }

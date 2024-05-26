@@ -21,6 +21,10 @@ public class ExampleSet {
         this.examples = new ArrayList<>(examples);
     }
 
+    public List<Example> getExamples() {
+        return examples;
+    }
+
     public void add(Example ex) {
         examples.add(ex);
     }
