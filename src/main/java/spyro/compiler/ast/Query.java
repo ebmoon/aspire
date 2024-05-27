@@ -37,10 +37,11 @@ public class Query extends SpyroNode {
         this.relations =  new ArrayList<>();
     }
 
-    public Query(List<Variable> variables, List<ExprFuncCall> signatures,
+    public Query(List<Variable> variables, List<ExprFuncCall> signatures, List<ExprFuncCall> relations,
                  List<GrammarRule> grammar, List<ExampleRule> examples, List<ExprFuncCall> assumptions
     ) {
         this(variables, signatures, grammar, examples);
+        this.relations = relations;
         this.assumptions = assumptions;
     }
 

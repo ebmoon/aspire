@@ -9,6 +9,7 @@ import spyro.compiler.ast.type.TypePrimitive;
 import spyro.compiler.ast.type.TypeStruct;
 import spyro.util.exceptions.ParseException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,14 +53,20 @@ public class BuildAstVisitor extends SpyroBaseVisitor<SpyroNode> {
 
         List<ExampleRule> examples = visitExamples(ctx.declExamples());
 
-        if(ctx.declAssumptions() == null)
-            return new Query(variables, signatures, grammar, examples);
+        List<ExprFuncCall> relations = new ArrayList<>();
+        if(ctx.declRelations() != null)
+            relations = ctx.declRelations().declRel().stream()
+                    .map(this::visitDeclRel)
+                    .collect(Collectors.toList());
 
-        List<ExprFuncCall> assumptions = ctx.declAssumptions().declAssumption().stream()
+
+        List<ExprFuncCall> assumptions = new ArrayList<>();
+        if(ctx.declAssumptions() != null)
+            assumptions = ctx.declAssumptions().declAssumption().stream()
                 .map(this::visitDeclAssumption)
                 .collect(Collectors.toList());
 
-        return new Query(variables, signatures, grammar, examples, assumptions);
+        return new Query(variables, signatures, relations, grammar, examples, assumptions);
     }
 
     public Variable visitDeclVar(SpyroParser.DeclVarContext ctx) {
@@ -407,12 +414,23 @@ public class BuildAstVisitor extends SpyroBaseVisitor<SpyroNode> {
 
         return new ExampleRule(nonterminal, rules);
     }
+    @Override
     public ExprFuncCall visitDeclAssumption(SpyroParser.DeclAssumptionContext ctx) {
         SpyroParser.ExprContext expr = ctx.expr();
         if (expr instanceof SpyroParser.FunctionExprContext) {
             return visitSignature((SpyroParser.FunctionExprContext) expr);
         } else {
-            throw new ParseException("Assumption must be given as a boolean function");
+            throw new ParseException("Assumptions must be given as a boolean function");
         }
     }
+    @Override
+    public ExprFuncCall visitDeclRel(SpyroParser.DeclRelContext ctx) {
+        SpyroParser.ExprContext expr = ctx.expr();
+        if (expr instanceof SpyroParser.FunctionExprContext) {
+            return visitSignature((SpyroParser.FunctionExprContext) expr);
+        } else {
+            throw new ParseException("Relations must be given as a boolean function");
+        }
+    }
+
 }

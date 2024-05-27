@@ -6,7 +6,7 @@ package spyro.compiler.parser;
 
 parse : program EOF ;
 
-program : declVariables declSignatures declLanguage declExamples declAssumptions? ;
+program : declVariables declSignatures declRelations? declLanguage declExamples declAssumptions? ;
 
 declVariables : VARIABLES LBRACE declVar+ RBRACE ;
 
@@ -17,9 +17,13 @@ declVar
 
 exGenNote : LARROW ID;
 
-declSignatures : SIGNATURES LBRACE declSig+ RBRACE ;
+declSignatures : SIGNATURES LBRACE declSig* RBRACE ;
 
 declSig : expr SEMI ;
+
+declRelations : RELATIONS LBRACE declRel+ RBRACE;
+
+declRel: expr  SEMI;
 
 declLanguage : LANGUAGE LBRACE declLanguageRule+ RBRACE ;
 
@@ -61,6 +65,7 @@ atom
 
 VARIABLES : 'variables';
 SIGNATURES : 'signatures';
+RELATIONS: 'relations';
 LANGUAGE : 'language';
 EXAMPLES : 'examples';
 ASSUMPTIONS : 'assumptions';

@@ -77,10 +77,6 @@ public class HiddenWitnessSketchBuilder {
         // declare fresh output variables
         stmts.add(commonBuilder.getVariableDecls(CommonSketchBuilder.ONLY_OUTPUT & CommonSketchBuilder.ONLY_VISIBLE, CommonSketchBuilder.WO_INIT));
 
-        // Relation
-        stmts.addAll(commonBuilder.getRelationAsStmts());
-        stmts.add(new StmtAssert(new ExprVar((FENode) null, CommonSketchBuilder.relationConjunctionId), false));
-
         // Signature
         stmts.addAll(commonBuilder.getSignatureAsStmts());
 
@@ -105,6 +101,10 @@ public class HiddenWitnessSketchBuilder {
             stmts.add(new StmtAssert(new ExprVar((FENode) null, tempVarId), false));
 
         }
+
+        // Relation
+        stmts.addAll(commonBuilder.getRelationAsStmts());
+        stmts.add(new StmtAssert(new ExprVar((FENode) null, CommonSketchBuilder.relationConjunctionId), false));
 
         Statement body = new StmtBlock((FENode) null, stmts);
 

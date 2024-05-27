@@ -63,6 +63,18 @@ public interface SpyroVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDeclSig(SpyroParser.DeclSigContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SpyroParser#declRelations}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeclRelations(SpyroParser.DeclRelationsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SpyroParser#declRel}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeclRel(SpyroParser.DeclRelContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SpyroParser#declLanguage}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
