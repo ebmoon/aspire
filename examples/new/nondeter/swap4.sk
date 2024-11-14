@@ -4,14 +4,14 @@ struct Array {
 
 generator void genArray(ref Array arr) {
     arr = new Array();
-    arr.d[0] = ??(1) + ??(1);
-    arr.d[1] = ??(1) + ??(1);
-    arr.d[2] = ??(1) + ??(1);
-    arr.d[3] = ??(1) + ??(1);
-    arr.d[4] = ??(1) + ??(1);
-    arr.d[5] = ??(1) + ??(1);
-    arr.d[6] = ??(1) + ??(1);
-    arr.d[7] = ??(1) + ??(1);
+    arr.d[0] = ??(2);
+    arr.d[1] = ??(2);
+    arr.d[2] = ??(2);
+    arr.d[3] = ??(2);
+    arr.d[4] = ??(2);
+    arr.d[5] = ??(2);
+    arr.d[6] = ??(2);
+    arr.d[7] = ??(2);
 }
 
 void random_sort(int a0, int a1, int a2, int a3, int n, Array h1, Array h2, ref boolean sorted) {

@@ -2,7 +2,7 @@ variables {
     int x;
     hidden boolean nd;
     hidden boolean ok;
-    boolean post
+    boolean post;
 }
 
 signatures {

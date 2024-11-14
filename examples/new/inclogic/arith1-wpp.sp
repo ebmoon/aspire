@@ -1,17 +1,22 @@
- variables {
+variables {
     int x;
     int a;
     int b;
     hidden boolean h;
+    hidden boolean x_out;
     boolean ok;
 }
 
 signatures {
-    prog(x, a, b, h, ok);
+    flip(x, a, b, h, x_out);
+}
+
+relations {
+    post(x_out, a, b);
 }
 
 language {
-    boolean B0 -> (ok == 1) && B ;
+    boolean B0 ->  B ;
     boolean B -> false | AP | AP && AP
                 | AP && AP && AP
                 | AP && AP && AP && AP

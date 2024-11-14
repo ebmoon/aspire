@@ -24,7 +24,7 @@ void random_sort(int a0, int a1, int a2, int n, Array h1, Array h2, ref boolean 
     {
         int t = a[h1.d[i]];
         a[h1.d[i]] = a[h2.d[i]];
-        a[h2.d[i]+1] = t;
+        a[h2.d[i]] = t;
         if(a[0] <= a[1] && a[1] <= a[2])
             {sorted = 1; return ;}
     }

@@ -1,30 +1,7 @@
-void prog(int x, int a, int b, int h0, int h1, ref boolean post) {
-    post = 1;
-    int x_out = x * h0 + h1;
-    if(!(a <= x_out && x_out <= b)) {post = 0; return;}
+void prog(int x,int h0, int h1, ref int x_out) {
+    x_out = x * h0 + h1;
 }
 
-void max(int x, int y, ref int out) {
-    if(x >= y)
-        out = x;
-    else
-        out = y;
-}
-
-void min(int x, int y, ref int out) {
-    if(x < y)
-        out = x;
-    else
-        out = y;
-}
-
-void abs(int x, ref int out) {
-    if(x > 0)
-        out = x;
-    else
-        out = -x;
-}
-
-void is_pos(int x, ref boolean out) {
-    out = x > 0;
+void post(int x_out, int a, int b, ref boolean ret) {
+    ret = (a <= x_out && x_out <= b);
 }

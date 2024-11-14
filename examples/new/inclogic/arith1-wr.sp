@@ -4,15 +4,18 @@
     int b;
     int x_out;
     hidden boolean h;
-    boolean pre;
 }
 
 signatures {
-    flip_pre(x, a, b, h, x_out, pre);
+    flip(x, h, x_out);
+}
+
+relations {
+    pre(x, a, b);
 }
 
 language {
-    boolean B0 -> pre && B;
+    boolean B0 -> B;
     boolean B -> false | AP | AP && AP
                 | AP && AP && AP
                 | AP && AP && AP && AP

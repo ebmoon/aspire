@@ -11,12 +11,11 @@ signatures {
 }
 
 language {
-    boolean B0 -> gcd(a, b) == 1 && B;
-    boolean B -> false | AP ;
-    boolean AP ->  r > N;
-    int N -> N1 | N1 + N1 | N1 - N1;
-    int N1 -> N2 | N2 + N2 | N2 - N2;
-    int N2 -> a | b | a * b | a * a | b * b | 1 | 0;
+    boolean B -> false | AP | AP && AP | AP && AP && AP;
+    boolean AP -> gcd(a, b) == 1 | gcd(a, b) > 1 | r > N ;
+    int N -> N2 | N2 + N2 | N2 + N2 + N2 | N2 - N2 | N2 - N2 - N2;
+    int N2 -> N3 | N3 * N3;
+    int N3 -> a | b | 1 | 0;
 }
 
 examples {

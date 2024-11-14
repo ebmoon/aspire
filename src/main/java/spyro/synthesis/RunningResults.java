@@ -78,8 +78,10 @@ public class RunningResults implements Comparable<RunningResults>{
         str += "Max Number of Hidden Witness = " + numHiddenWitness + "\n";
         return str;
     }
-
     public String toCSV() {
+        return String.format("%d, %d", properties.getProperties().size(), runningTime);
+    }
+    public String toCSVOld() {
         BigDecimal sizeDecimal = new BigDecimal(grammarSize);
         DecimalFormat df = new DecimalFormat("0.######E0");
         return String.format("%s, %d, %d, %d, %d, %d, %d, %d, %d", df.format(sizeDecimal), runningTime, numSoundness, timeSoundness, numPrecision, timePrecision, numSynthesis, timeSynthesis, numHiddenWitness);

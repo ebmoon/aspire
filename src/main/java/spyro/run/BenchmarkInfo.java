@@ -56,7 +56,11 @@ public class BenchmarkInfo {
                 "--bnd-unroll-amnt",
                 String.valueOf(bndUnrollAmnt),
                 "--bnd-mbits",
-                String.valueOf(bndMbits)
+                String.valueOf(bndMbits),
+                "--fe-fpencoding",
+                "TO_BACKEND",
+                "--slv-seed",
+                "12345"
         ));
         if (propertyType == OVER)
             args.add("--synth-over");

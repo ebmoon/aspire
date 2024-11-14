@@ -11,8 +11,8 @@ generator void genStrategy(ref Strategy P) {
     P = new Strategy(f = {??(1), ??(1), ??(1), ??(1), ??(1)});
 }
 
-void prog(Strategy P0, Strategy P1, ref boolean win) {
-    int s = 0;
+void prog(Strategy P0, Strategy P1, int init, ref boolean win) {
+    int s = init;
     for(int bnd = 10; bnd > 0; bnd--) {
         if(P0.f[s] == 0) {
            // nop;

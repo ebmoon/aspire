@@ -1,3 +1,8 @@
+// Aspire input file for problem in Sec. 2.1.2
+//
+// ----- Query -----
+//
+
 variables {
     int M <- posIEX;
     hidden int x <- IEX;
@@ -9,6 +14,13 @@ signatures {
     modmul(a, x, M, y);
 }
 
+// The query is "\exists x. y = modmul(a, x, M)".
+
+
+//
+// ----- DSL -----
+//
+
 language {
     boolean B -> false | AP | AP && AP | AP && AP && AP | AP && AP && AP && AP | AP && AP && AP && AP && AP;
     boolean AP -> isPrime(M) | !isPrime(M) | N == N | N != N | N < N | N <= N ;
@@ -17,6 +29,6 @@ language {
 
 examples {
     int IEX -> ??(4) - 8;
-    int posIEX-> ??(3) + 2;
+    int posIEX-> ??(3);
     boolean BEX-> true | false;
 }
