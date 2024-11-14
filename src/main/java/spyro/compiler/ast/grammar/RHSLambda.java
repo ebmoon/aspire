@@ -8,15 +8,15 @@ import spyro.compiler.ast.SpyroNodeVisitor;
  * @author Kanghee Park &lt;khpark@cs.wisc.edu&gt;
  */
 public class RHSLambda extends RHSTerm {
-    String param;
+    List<String> param;
     RHSTerm body;
 
-    public RHSLambda(String param, RHSTerm body) {
+    public RHSLambda(List<String> param, RHSTerm body) {
         this.param = param;
         this.body = body;
     }
 
-    public String getParam() {
+    public List<String> getParam() {
         return param;
     }
 
@@ -25,7 +25,8 @@ public class RHSLambda extends RHSTerm {
     }
 
     public String toString() {
-        return String.format("(%s) -> %s", param, body.toString());
+        String paramString = String.join(",", param);
+        return String.format("(%s) -> %s", paramString, body.toString());
     }
 
     public int size() {

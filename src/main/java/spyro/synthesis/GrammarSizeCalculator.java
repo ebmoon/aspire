@@ -1,6 +1,7 @@
 package spyro.synthesis;
 
 import spyro.compiler.ast.Query;
+import spyro.compiler.ast.expr.Nonterminal;
 import spyro.compiler.ast.grammar.*;
 import spyro.util.exceptions.SketchConversionException;
 
@@ -18,8 +19,8 @@ public class GrammarSizeCalculator {
     }
 
     public BigInteger computeRHSTermSize(RHSTerm t) {
-        if (t instanceof Nonterminal)
-            return computeNonterminalSize((Nonterminal) t);
+        if (t instanceof RHSNonterminal)
+            return computeNonterminalSize(((RHSNonterminal) t).getRef());
         else if (t instanceof RHSBinary)
             return computeRHSTermSize(((RHSBinary) t).getLeft()).multiply(computeRHSTermSize(((RHSBinary) t).getRight()));
         else if (t instanceof RHSUnary)

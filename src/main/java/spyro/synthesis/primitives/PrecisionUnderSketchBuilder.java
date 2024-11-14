@@ -46,6 +46,10 @@ public class PrecisionUnderSketchBuilder {
             stmts.add(synth.commonBuilder.getVariableDecls(CommonSketchBuilder.ONLY_OUTPUT, CommonSketchBuilder.WO_INIT));
             stmts.addAll(synth.commonBuilder.getSignatureAsStmts());
 
+            // assert(rel_conj);
+            stmts.addAll(synth.commonBuilder.getRelationAsStmts());
+            stmts.add(new StmtAssert(new ExprVar((FENode) null, CommonSketchBuilder.relationConjunctionId), false));
+
 
             final String tempVarID = "out";
             ExprVar tempVar1 = new ExprVar((FENode) null, tempVarID + "1");

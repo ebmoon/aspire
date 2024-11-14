@@ -58,13 +58,14 @@ public class CommonSketchBuilder implements SpyroNodeVisitor {
     Set<String> variableSet;
     Set<String> outputVariableSet;
     Map<String, sketch.compiler.ast.core.typs.Type> variableToSketchType;
-    Map<String, sketch.compiler.ast.core.typs.Type> nonterminalToSketchType;
+    Map<String, Nonterminal> nonterminalMap;
 
     Map<String, Function> firstExampleGenerators; // map from Spyro type to its generator
 
     List<Statement> stmtsToPrepend;
-    Map<String, Integer> generatorCxt;
-    Map<String, Integer> maxCxt;
+    Map<String, Integer> generatorCxt; // The number of times each nonterminal appears in a RHSTerm
+
+    Map<String, Integer> maxCxt; // The maximal number of times each nonterminal appears in the previous RHSTerms
     int freshVarCount;
     int hiddenNum;
 
@@ -323,7 +324,7 @@ public class CommonSketchBuilder implements SpyroNodeVisitor {
 
     @Override
     public Program visitQuery(Query q) {
-        nonterminalToSketchType = new HashMap<>();
+        nonterminalMap = new HashMap<>();
         firstExampleGenerators = new HashMap<>();
         freshVarCount = 0;
         outputVariableSet = new HashSet<>();
@@ -357,16 +358,16 @@ public class CommonSketchBuilder implements SpyroNodeVisitor {
         for (Variable var : variables)
             if (outputVariableSet.contains(var.getID())) var.setOutput();
 
-        nonterminalToSketchType = q.getGrammar().stream()
+        nonterminalMap = q.getGrammar().stream()
                 .map(GrammarRule::getNonterminal)
-                .collect(Collectors.toMap(Nonterminal::getID, n -> this.doType(n.getType())));
+                .collect(Collectors.toMap(Nonterminal::getID, n -> n));
         propertyGenerators = q.getGrammar().stream()
                 .map(rule -> (Function) rule.accept(this))
                 .collect(Collectors.toList());
 
-        nonterminalToSketchType = q.getExamples().stream()
+        nonterminalMap = q.getExamples().stream()
                 .map(ExampleRule::getNonterminal)
-                .collect(Collectors.toMap(Nonterminal::getID, n -> this.doType(n.getType())));
+                .collect(Collectors.toMap(Nonterminal::getID, n -> n));
         exampleGenerators = q.getExamples().stream()
                 .map(rule -> (Function) rule.accept(this))
                 .collect(Collectors.toList());
@@ -573,10 +574,11 @@ public class CommonSketchBuilder implements SpyroNodeVisitor {
     @Override
     public ExprLambda visitRHSAnonFunc(RHSLambda lam) {
         List<ExprVar> params = new ArrayList<>();
-        params.add(new ExprVar((FENode) null, lam.getParam()));
+        for (String id : lam.getParam())
+            params.add(new ExprVar((FENode) null, id));
 
         Set<String> backup = new HashSet<>(variableSet);
-        variableSet.add(lam.getParam());
+        variableSet.addAll(lam.getParam());
         sketch.compiler.ast.core.exprs.Expression body =
                 (sketch.compiler.ast.core.exprs.Expression) lam.getBody().accept(this);
         variableSet = backup;
@@ -637,7 +639,7 @@ public class CommonSketchBuilder implements SpyroNodeVisitor {
 
 
                 names.add(varID);
-                types.add(nonterminalToSketchType.get(key));
+                types.add(doType(nonterminalMap.get(key).getType()));
                 inits.add(new ExprFunCall((FENode) null, funID, paramVars));
             }
         }
@@ -661,7 +663,7 @@ public class CommonSketchBuilder implements SpyroNodeVisitor {
     public Object visitGrammarRule(GrammarRule rule) {
         String nonterminalID = rule.getNonterminal().getID();
         String generatorID = String.format("%s_gen", nonterminalID);
-        sketch.compiler.ast.core.typs.Type returnType = nonterminalToSketchType.get(nonterminalID);
+        sketch.compiler.ast.core.typs.Type returnType = doType(nonterminalMap.get(nonterminalID).getType());
 
         maxCxt = new HashMap<>();
 
@@ -684,7 +686,7 @@ public class CommonSketchBuilder implements SpyroNodeVisitor {
     public sketch.compiler.ast.core.Function visitExampleRule(ExampleRule rule) {
         String nonterminalID = rule.getNonterminal().getID();
         String generatorID = String.format("%s_gen", nonterminalID);
-        sketch.compiler.ast.core.typs.Type returnType = nonterminalToSketchType.get(nonterminalID);
+        sketch.compiler.ast.core.typs.Type returnType = doType(nonterminalMap.get(nonterminalID).getType());
 
         maxCxt = new HashMap<>();
 

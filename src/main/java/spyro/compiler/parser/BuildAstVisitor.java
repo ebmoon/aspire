@@ -39,9 +39,9 @@ public class BuildAstVisitor extends SpyroBaseVisitor<SpyroNode> {
                 .collect(Collectors.toList());
 
         // id -> Variable map
-        varContextWithType = variables.stream()
-                .collect(Collectors.toMap(Variable::getID, Function.identity()));
         varContext = variables.stream()
+                .collect(Collectors.toMap(Variable::getID, Function.identity()));
+        RHSVarContext = variables.stream()
                 .collect(Collectors.toMap(Variable::getID, RHSVariable::new));
 
         List<ExprFuncCall> signatures = ctx.declSignatures().declSig().stream()
@@ -54,17 +54,17 @@ public class BuildAstVisitor extends SpyroBaseVisitor<SpyroNode> {
         List<ExampleRule> examples = visitExamples(ctx.declExamples());
 
         List<ExprFuncCall> relations = new ArrayList<>();
-        if(ctx.declRelations() != null)
+        if (ctx.declRelations() != null)
             relations = ctx.declRelations().declRel().stream()
                     .map(this::visitDeclRel)
                     .collect(Collectors.toList());
 
 
         List<ExprFuncCall> assumptions = new ArrayList<>();
-        if(ctx.declAssumptions() != null)
+        if (ctx.declAssumptions() != null)
             assumptions = ctx.declAssumptions().declAssumption().stream()
-                .map(this::visitDeclAssumption)
-                .collect(Collectors.toList());
+                    .map(this::visitDeclAssumption)
+                    .collect(Collectors.toList());
 
         return new Query(variables, signatures, relations, grammar, examples, assumptions);
     }
@@ -218,24 +218,43 @@ public class BuildAstVisitor extends SpyroBaseVisitor<SpyroNode> {
     @Override
     public RHSTerm visitIdAtom(SpyroParser.IdAtomContext ctx) {
         String id = ctx.ID().getText();
-        if (varContext.containsKey(id)) {
-            return varContext.get(id);
+        if (RHSVarContext.containsKey(id)) {
+            return RHSVarContext.get(id);
         } else if (nonterminalContext.containsKey(id)) {
-            return nonterminalContext.get(id);
+            return new RHSNonterminal(id, nonterminalContext.get(id));
         } else {
-            throw new ParseException("Unknown variable " + id);
+            throw new ParseException("Unknown RHS Name " + id);
         }
     }
 
     @Override
     public RHSTerm visitAnonFuncExpr(SpyroParser.AnonFuncExprContext ctx) {
-        String id = ctx.ID().getText();
 
-        varContext.put(id, new RHSVariable(id));
+        List<String> ids = ctx.ID().stream()
+                .map(ParseTree::getText)
+                .collect(Collectors.toList());
+
+        for (String id : ids)
+            RHSVarContext.put(id, new RHSVariable(id));
         RHSTerm expr = visitExpression(ctx.expr());
-        varContext.remove(id);
+        for (String id : ids)
+            RHSVarContext.remove(id);
+        return new RHSLambda(ids, expr);
+    }
 
-        return new RHSLambda(id, expr);
+    @Override
+    public RHSTerm visitNontFuncExpr(SpyroParser.NontFuncExprContext ctx) {
+
+        String id = ctx.ID().getText();
+        Nonterminal ref = nonterminalContext.get(id);
+        if (ref == null)
+            throw new ParseException("Unknown RHS Name " + id);
+
+        List<RHSTerm> exprs = ctx.expr().stream()
+                .map(this::visitExpression)
+                .collect(Collectors.toList());
+
+        return new RHSNonterminal(id, ref, exprs);
     }
 
     @Override
@@ -353,13 +372,18 @@ public class BuildAstVisitor extends SpyroBaseVisitor<SpyroNode> {
     public List<GrammarRule> visitLanguage(SpyroParser.DeclLanguageContext ctx) {
         List<SpyroParser.DeclLanguageRuleContext> ruleContexts = ctx.declLanguageRule();
 
-        // Construct an context with nonterminals
+        // Construct a context with nonterminals
         nonterminalContext = new HashMap<>();
         for (SpyroParser.DeclLanguageRuleContext ruleContext : ruleContexts) {
             String nonterminalID = ruleContext.ID().getText();
             Type ty = visitType(ruleContext.type());
             Nonterminal v = new Nonterminal(ty, nonterminalID);
 
+            Nonterminal v;
+            if (ruleContext.declNonterminalParam() == null)
+                v = new Nonterminal(ty, nonterminalID);
+            else
+                v = new Nonterminal(ty, nonterminalID, visitNonterminalParam(ruleContext.declNonterminalParam()));  // todo
             nonterminalContext.put(nonterminalID, v);
         }
 
@@ -390,6 +414,12 @@ public class BuildAstVisitor extends SpyroBaseVisitor<SpyroNode> {
                 .collect(Collectors.toList());
 
         return rules;
+    }
+
+    public List<String> visitNonterminalParam(SpyroParser.DeclNonterminalParamContext ctx) {
+        return ctx.ID().stream()
+                .map(ParseTree::getText)
+                .collect(Collectors.toList());
     }
 
     @Override

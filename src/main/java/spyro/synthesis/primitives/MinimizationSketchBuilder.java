@@ -59,7 +59,7 @@ public class MinimizationSketchBuilder extends CommonSketchBuilder {
                 paramVars.add(new ExprVar((FENode) null, varID));
 
                 names.add(varID);
-                types.add(nonterminalToSketchType.get(key));
+                types.add(doType(nonterminalMap.get(key).getType()));
                 inits.add(null);
                 generatorCalls.add(new ExprFunCall((FENode) null, funID, paramVars));
             }
@@ -94,7 +94,7 @@ public class MinimizationSketchBuilder extends CommonSketchBuilder {
     public Object visitGrammarRule(GrammarRule rule) {
         String nonterminalID = rule.getNonterminal().getID();
         String generatorID = String.format("%s_gen", nonterminalID);
-        sketch.compiler.ast.core.typs.Type returnType = nonterminalToSketchType.get(nonterminalID);
+        sketch.compiler.ast.core.typs.Type returnType = doType(nonterminalMap.get(nonterminalID).getType());
 
         maxCxt = new HashMap<>();
 

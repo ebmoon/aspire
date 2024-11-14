@@ -27,7 +27,9 @@ declRel: expr  SEMI;
 
 declLanguage : LANGUAGE LBRACE declLanguageRule+ RBRACE ;
 
-declLanguageRule : type ID ARROW (expr ('|' expr)*) SEMI ;
+declLanguageRule : type ID declNonterminalParam? ARROW (expr ('|' expr)*) SEMI ;
+
+declNonterminalParam : LSQUAR (ID (',' ID)*)? RSQUAR;
 
 declExamples : EXAMPLES LBRACE declExampleRule* RBRACE ;
 
@@ -40,7 +42,7 @@ declAssumption : expr SEMI ;
 type : ID;
 
 expr
- : LPAREN ID RPAREN ARROW expr              #anonFuncExpr
+ : LPAREN ID (',' ID)* RPAREN ARROW expr    #anonFuncExpr
  | LPAREN expr RPAREN						#parenExpr
  | ID LPAREN (expr (',' expr)*)? RPAREN		#functionExpr
  | MINUS expr                           	#unaryMinusExpr
@@ -52,6 +54,7 @@ expr
  | expr AND expr                        	#andExpr
  | expr OR expr                         	#orExpr
  | atom                                 	#atomExpr
+ | ID LSQUAR (expr (',' expr)*)? RSQUAR		#nontFuncExpr
  ;
 
 atom
@@ -89,6 +92,8 @@ SEMI : ';';
 ASSIGN : '=';
 LPAREN : '(';
 RPAREN : ')';
+LSQUAR : '[';
+RSQUAR : ']';
 LBRACE : '{';
 RBRACE : '}';
 

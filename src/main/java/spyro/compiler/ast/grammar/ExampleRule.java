@@ -2,8 +2,7 @@ package spyro.compiler.ast.grammar;
 
 import spyro.compiler.ast.SpyroNode;
 import spyro.compiler.ast.SpyroNodeVisitor;
-import spyro.compiler.ast.expr.Expression;
-import spyro.compiler.ast.type.Type;
+import spyro.compiler.ast.expr.Nonterminal;
 
 import java.util.List;
 

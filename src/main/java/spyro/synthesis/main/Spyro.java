@@ -366,7 +366,7 @@ public class Spyro{
             Example ePos = checkSoundness(phiE);
             if (ePos != null) {
                 pos.add(ePos);
-                Property phiPrime = synthesize(pos, neg);
+                Property phiPrime = options.synthOpts.abd ? synthesizeMin(pos, neg) : synthesize(pos,neg);
                 if (phiPrime != null) {
                     phiE = phiPrime;
                 } else {
@@ -376,7 +376,7 @@ public class Spyro{
             } else {
                 negMust = neg.copy();
                 phiLastSound = phiE;
-                Pair<Property, Example> precisionResult = checkPrecision(psi, phiE, pos, neg);
+                Pair<Property, Example> precisionResult = options.synthOpts.abd ? checkPrecisionMin(psi, phiE, pos, neg) : checkPrecision(psi, phiE, pos, neg);
                 if (precisionResult == null) {
                     return new PropertySynthesisResult(phiE, pos, negMust);
                 } else {
@@ -653,16 +653,18 @@ public class Spyro{
         RunningResults outputInfo = new RunningResults(options.synthOpts.under, result.props, lambdaFunctions, grammarSize, elapsedTime, timeSoundness, numSoundness, timePrecision, numPrecision, timeSynthesis, numSynthesis, maxHiddenSize);
 
         if (options.synthOpts.abd) {
-            for (Property phi : unsoundProperties) {
-                System.out.println(phi.getImpl().getBody());
-            }
+//            for (Property phi : unsoundProperties) {
+//                System.out.print(phi.getImpl().getBody());
+//            }
 
-            for(Example ex: result.pos.getExamples()) {
-                System.out.println(ex.getBody());
-            }
+//            for(Example ex: result.pos.getExamples()) {
+//                System.out.println(ex.getBody());
+//            }
+            System.out.printf("Number of Positive Examples: %d\n\n",result.pos.getExamples().size());
             List<Pair<Property, Integer>> unsoundList = sortUnsoundProperties(unsoundProperties, result.pos.getExamples());
             for(Pair<Property, Integer> pair: unsoundList) {
-                System.out.printf("passed examples: %d\n", pair.getSecond());
+                System.out.print(pair.getFirst().getImpl().getBody());
+                System.out.printf("passed examples: %d\n\n", pair.getSecond());
             }
         }
 
