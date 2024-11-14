@@ -3,8 +3,7 @@ package spyro.compiler.ast;
 import spyro.compiler.ast.expr.*;
 import spyro.compiler.ast.expr.Variable;
 import spyro.compiler.ast.grammar.*;
-import spyro.compiler.ast.type.TypePrimitive;
-import spyro.compiler.ast.type.TypeStruct;
+import spyro.compiler.ast.type.*;
 
 /**
  * Visitor interface for SpyroNode nodes.
@@ -26,8 +25,9 @@ public interface SpyroNodeVisitor {
 
     public Object visitTypePrimitive(TypePrimitive type);
     public Object visitTypeStruct(TypeStruct type);
+    public Object visitTypeArray(TypeArray type);
 
-    public Object visitNonterminal(Nonterminal n);
+    public Object visitRHSNonterminal(RHSNonterminal n);
     public Object visitRHSUnary(RHSUnary e);
     public Object visitRHSBinary(RHSBinary e);
     public Object visitRHSFuncCall(RHSFuncCall fc);

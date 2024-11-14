@@ -10,10 +10,12 @@ import spyro.util.exceptions.ParseException;
  */
 public class TypePrimitive extends Type {
 
+    private String id;
     private PredefinedType ty;
 
     public TypePrimitive(String id) {
-        super(id);
+        super();
+        this.id = id;
         if (id.equals("int")) {
             ty = PredefinedType.TYPE_INT;
         } else if (id.equals("boolean")) {
@@ -35,5 +37,10 @@ public class TypePrimitive extends Type {
     public enum PredefinedType {
         TYPE_INT,
         TYPE_BOOLEAN
+    }
+
+    @Override
+    public String toString() {
+        return id;
     }
 }

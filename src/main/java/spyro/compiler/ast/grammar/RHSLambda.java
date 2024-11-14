@@ -2,6 +2,9 @@ package spyro.compiler.ast.grammar;
 
 import spyro.compiler.ast.SpyroNodeVisitor;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * A class for anonymous function
  *

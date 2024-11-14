@@ -1,12 +1,15 @@
 package spyro.compiler.parser;
 
+import org.antlr.v4.runtime.tree.ParseTree;
 import spyro.compiler.ast.Query;
 import spyro.compiler.ast.SpyroNode;
 import spyro.compiler.ast.expr.*;
 import spyro.compiler.ast.grammar.*;
 import spyro.compiler.ast.type.Type;
+import spyro.compiler.ast.type.TypeArray;
 import spyro.compiler.ast.type.TypePrimitive;
 import spyro.compiler.ast.type.TypeStruct;
+import spyro.synthesis.main.cmdline.SpyroOptions;
 import spyro.util.exceptions.ParseException;
 
 import java.util.ArrayList;
@@ -23,8 +26,8 @@ import java.util.stream.Collectors;
  */
 public class BuildAstVisitor extends SpyroBaseVisitor<SpyroNode> {
 
-    Map<String, Variable> varContextWithType;
-    Map<String, RHSVariable> varContext;
+    Map<String, Variable> varContext;
+    Map<String, RHSVariable> RHSVarContext;
     Map<String, Nonterminal> nonterminalContext;
 
     @Override
@@ -104,14 +107,30 @@ public class BuildAstVisitor extends SpyroBaseVisitor<SpyroNode> {
         }
     }
 
-    @Override
     public Type visitType(SpyroParser.TypeContext ctx) {
+        if (ctx instanceof SpyroParser.ScalarTypeContext) {
+            return visitScalarType((SpyroParser.ScalarTypeContext) ctx);
+        }
+        else if (ctx instanceof SpyroParser.ArrayTypeContext) {
+            return visitArrayType((SpyroParser.ArrayTypeContext) ctx);
+        }
+        else throw new ParseException("Unknown type case");
+    }
+    @Override
+    public Type visitScalarType(SpyroParser.ScalarTypeContext ctx) {
         String id = ctx.ID().getText();
         if (Type.isPrimitiveId(id)) {
             return new TypePrimitive(id);
         } else {
             return new TypeStruct(id);
         }
+    }
+
+    @Override
+    public Type visitArrayType(SpyroParser.ArrayTypeContext ctx) {
+        Type base = visitType(ctx.type());
+        int length = Integer.parseInt(ctx.INT().getText());
+        return new TypeArray(base, length);
     }
 
     public ExprFuncCall visitSignature(SpyroParser.FunctionExprContext ctx) {
@@ -121,7 +140,7 @@ public class BuildAstVisitor extends SpyroBaseVisitor<SpyroNode> {
         List<Expression> args = ctx.expr().stream()
                 .map(exprCtx -> ((SpyroParser.AtomExprContext) exprCtx).atom())
                 .map(atomCtx -> ((SpyroParser.IdAtomContext) atomCtx).ID().getText())
-                .map(varID -> varContextWithType.get(varID))
+                .map(varID -> varContext.get(varID))
                 .collect(Collectors.toList());
 
         return new ExprFuncCall(id, args);
@@ -377,8 +396,6 @@ public class BuildAstVisitor extends SpyroBaseVisitor<SpyroNode> {
         for (SpyroParser.DeclLanguageRuleContext ruleContext : ruleContexts) {
             String nonterminalID = ruleContext.ID().getText();
             Type ty = visitType(ruleContext.type());
-            Nonterminal v = new Nonterminal(ty, nonterminalID);
-
             Nonterminal v;
             if (ruleContext.declNonterminalParam() == null)
                 v = new Nonterminal(ty, nonterminalID);
@@ -444,6 +461,7 @@ public class BuildAstVisitor extends SpyroBaseVisitor<SpyroNode> {
 
         return new ExampleRule(nonterminal, rules);
     }
+
     @Override
     public ExprFuncCall visitDeclAssumption(SpyroParser.DeclAssumptionContext ctx) {
         SpyroParser.ExprContext expr = ctx.expr();
@@ -453,6 +471,7 @@ public class BuildAstVisitor extends SpyroBaseVisitor<SpyroNode> {
             throw new ParseException("Assumptions must be given as a boolean function");
         }
     }
+
     @Override
     public ExprFuncCall visitDeclRel(SpyroParser.DeclRelContext ctx) {
         SpyroParser.ExprContext expr = ctx.expr();

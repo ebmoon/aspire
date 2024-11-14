@@ -8,8 +8,10 @@ import spyro.compiler.ast.SpyroNodeVisitor;
  * @author Kanghee Park &lt;khpark@cs.wisc.edu&gt;
  */
 public class TypeStruct extends Type {
+
+    private String id;
     public TypeStruct(String id) {
-        super(id);
+        this.id = id;
     }
 
 
@@ -23,4 +25,8 @@ public class TypeStruct extends Type {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return id;
+    }
 }

@@ -87,6 +87,12 @@ public interface SpyroVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDeclLanguageRule(SpyroParser.DeclLanguageRuleContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SpyroParser#declNonterminalParam}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeclNonterminalParam(SpyroParser.DeclNonterminalParamContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SpyroParser#declExamples}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -111,32 +117,26 @@ public interface SpyroVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDeclAssumption(SpyroParser.DeclAssumptionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SpyroParser#type}.
+	 * Visit a parse tree produced by the {@code arrayType}
+	 * labeled alternative in {@link SpyroParser#type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitType(SpyroParser.TypeContext ctx);
+	T visitArrayType(SpyroParser.ArrayTypeContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code notExpr}
+	 * Visit a parse tree produced by the {@code scalarType}
+	 * labeled alternative in {@link SpyroParser#type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitScalarType(SpyroParser.ScalarTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code nontFuncExpr}
 	 * labeled alternative in {@link SpyroParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNotExpr(SpyroParser.NotExprContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code unaryMinusExpr}
-	 * labeled alternative in {@link SpyroParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitUnaryMinusExpr(SpyroParser.UnaryMinusExprContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code multiplicationExpr}
-	 * labeled alternative in {@link SpyroParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMultiplicationExpr(SpyroParser.MultiplicationExprContext ctx);
+	T visitNontFuncExpr(SpyroParser.NontFuncExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code atomExpr}
 	 * labeled alternative in {@link SpyroParser#expr}.
@@ -180,19 +180,40 @@ public interface SpyroVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParenExpr(SpyroParser.ParenExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code equalityExpr}
-	 * labeled alternative in {@link SpyroParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitEqualityExpr(SpyroParser.EqualityExprContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code functionExpr}
 	 * labeled alternative in {@link SpyroParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFunctionExpr(SpyroParser.FunctionExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code notExpr}
+	 * labeled alternative in {@link SpyroParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNotExpr(SpyroParser.NotExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code unaryMinusExpr}
+	 * labeled alternative in {@link SpyroParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryMinusExpr(SpyroParser.UnaryMinusExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code multiplicationExpr}
+	 * labeled alternative in {@link SpyroParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultiplicationExpr(SpyroParser.MultiplicationExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code equalityExpr}
+	 * labeled alternative in {@link SpyroParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEqualityExpr(SpyroParser.EqualityExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code andExpr}
 	 * labeled alternative in {@link SpyroParser#expr}.

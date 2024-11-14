@@ -39,7 +39,9 @@ declAssumptions : ASSUMPTIONS LBRACE declAssumption+ RBRACE ;
 
 declAssumption : expr SEMI ;
 
-type : ID;
+type : ID                      #scalarType
+     | type LSQUAR INT RSQUAR  #arrayType
+     ;
 
 expr
  : LPAREN ID (',' ID)* RPAREN ARROW expr    #anonFuncExpr

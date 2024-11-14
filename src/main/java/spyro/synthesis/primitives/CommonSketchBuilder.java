@@ -16,6 +16,7 @@ import spyro.compiler.ast.expr.ExprUnary;
 import spyro.compiler.ast.expr.*;
 import spyro.compiler.ast.grammar.*;
 import spyro.compiler.ast.type.Type;
+import spyro.compiler.ast.type.TypeArray;
 import spyro.compiler.ast.type.TypePrimitive;
 import spyro.compiler.ast.type.TypeStruct;
 import spyro.util.exceptions.SketchConversionException;
@@ -453,10 +454,17 @@ public class CommonSketchBuilder implements SpyroNodeVisitor {
         return new TypeStructRef(type.toString(), false, null);
     }
 
+    public Object visitTypeArray(TypeArray type){
+        sketch.compiler.ast.core.typs.Type base = (sketch.compiler.ast.core.typs.Type) type.getBase().accept(this);
+        return new sketch.compiler.ast.core.typs.TypeArray(base, new ExprConstInt(type.getLength()));
+    }
+
+
     @Override
-    public Object visitNonterminal(Nonterminal n) {
+    public Object visitRHSNonterminal(RHSNonterminal n) {
         String varID = n.getID();
-        if (nonterminalToSketchType.containsKey(varID)) {
+        Nonterminal nont = nonterminalMap.get(varID);
+        if (nont != null) {
             int cnt = generatorCxt.getOrDefault(varID, 0);
             String varId = String.format("var_%s_%d", n.getID(), cnt);
             generatorCxt.put(varID, cnt + 1);
