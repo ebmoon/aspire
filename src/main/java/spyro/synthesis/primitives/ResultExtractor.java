@@ -6,6 +6,7 @@ import sketch.compiler.ast.core.Parameter;
 import sketch.compiler.ast.core.Program;
 import sketch.compiler.ast.core.exprs.*;
 import sketch.compiler.ast.core.stmts.*;
+import sketch.compiler.ast.core.typs.TypeArray;
 import sketch.compiler.ast.core.typs.TypePrimitive;
 import spyro.synthesis.Example;
 import spyro.synthesis.HiddenValue;
@@ -209,7 +210,7 @@ public class ResultExtractor {
             // boolean out_xxx;
             stmts.add(new StmtVarDecl((FENode) null, sketch.compiler.ast.core.typs.TypePrimitive.bittype, tempVarId, null));
 
-            if (var.getType() instanceof TypePrimitive) {
+            if (var.getType() instanceof TypePrimitive || var.getType() instanceof TypeArray) {
                 stmts.add(new StmtAssign(out, new ExprBinary(ExprBinary.BINOP_EQ, op1, op2)));
             } else {
                 String funID = var.getType().toString() + CommonSketchBuilder.equalityOperatorSuffix;

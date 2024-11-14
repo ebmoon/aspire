@@ -90,7 +90,7 @@ public class HiddenWitnessSketchBuilder {
             // boolean out_xxx;
             stmts.add(new StmtVarDecl((FENode) null, sketch.compiler.ast.core.typs.TypePrimitive.bittype, tempVarId, null));
 
-            if (var.getType() instanceof TypePrimitive | var.getType() instanceof TypeArray) {
+            if (var.getType() instanceof TypePrimitive || var.getType() instanceof TypeArray) {
                 stmts.add(new StmtAssign(out, new ExprBinary(ExprBinary.BINOP_EQ, op1, op2)));
             } else {
                 String funID = var.getType().toString() + CommonSketchBuilder.equalityOperatorSuffix;

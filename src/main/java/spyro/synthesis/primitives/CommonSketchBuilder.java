@@ -128,7 +128,7 @@ public class CommonSketchBuilder implements SpyroNodeVisitor {
             List<Expression> exprs = new ArrayList<>();
             for (int i = 0, sz = relations.size(); i < sz; i++) {
                 ExprFunCall rel = relations.get(i);
-                String varId = "out_" + rel.getName();
+                String varId = "out_" + rel.getName() + "_" + i;
                 ExprVar var = new ExprVar((FENode) null, varId);
                 stmts.add(new StmtVarDecl((FENode) null, sketch.compiler.ast.core.typs.TypePrimitive.bittype, varId, null));
 
