@@ -333,31 +333,76 @@ public class RunBenchmarksMain {
 
     public static void main(String[] arguments) {
         final RunBenchmarksMain runBenchmarksMain = new RunBenchmarksMain();
-//        runBenchmarksMain.writeCSV("specOver", specOver, true);
-//        runBenchmarksMain.writeCSV("specUnder", specUnder, true);
 
-//        runBenchmarksMain.writeCSV("NondeterUnder", nondeterUnder, true);
-        runBenchmarksMain.writeCSV("ShffuleUnder", nondeterUnder, true);
+        boolean run1 = false, run2 = false, run3 = false, run4 = false;
+        if (arguments.length == 0) {
+            run1 = true;
+            run2 = true;
+            run3 = true;
+            run4 = true;
+        }
+        else {
+            assert arguments.length == 1;
+            for (String arg : arguments) {
+                switch (arguments[0]) {
+                    case "-1":
+                        run1 = true;
+                        break;
+                    case "-2":
+                        run2 = true;
+                        break;
+                    case "-3":
+                        run3 =true;
+                        break;
+                    case "-4":
+                        run4 = true;
+                        break;
+                    default:
+                        System.out.println("Unknown argument:" + arg);
+                        break;
+                }
+            }
+        }
+
+
+        if (run1) {
+            // 1 - 1
+            runBenchmarksMain.writeCSV("specOver", specOver, true);
+            runBenchmarksMain.writeCSV("specUnder", specUnder, true);
+
+            runBenchmarksMain.writeCSV("listOver", listOver, true);
+            runBenchmarksMain.writeCSV("listUnder", listUnder, true);
+            runBenchmarksMain.writeCSV("queueOver", queueOver, true);
+            runBenchmarksMain.writeCSV("queueUnder", queueUnder, true);
+            runBenchmarksMain.writeCSV("stackOver", stackOver, true);
+            runBenchmarksMain.writeCSV("stackUnder", stackUnder, true);
+
+
+            // 1 - 2
+            runBenchmarksMain.writeCSV("NondeterUnder", nondeterUnder, true);
+            runBenchmarksMain.writeCSV("NondeterOver", nondeterOver, true);
 //        runBenchmarksMain.writeCSV("NondeterUnder-noReuse", nondeterUnder, false);
-//        runBenchmarksMain.writeCSV("NondeterOver", nondeterOver, true);
-        runBenchmarksMain.writeCSV("ShuffleOver", nondeterOver, true);
-//        runBenchmarksMain.writeCSV("ConcurrencyUnder", concurrencyUnder, true);
-//        runBenchmarksMain.writeCSV("ConcurrencyOver", concurrencyOver,true);
+//        runBenchmarksMain.writeCSV("ShffuleUnder", nondeterUnder, true);
+//        runBenchmarksMain.writeCSV("ShuffleOver", nondeterOver, true);
+        }
 
-//        runBenchmarksMain.writeCSV("IncLogic", incLogic, true);
 
-//        runBenchmarksMain.writeCSV("GameOver", gameOver,true);
+        if(run2) {  // 2
+            runBenchmarksMain.writeCSV("IncLogic", incLogic, true);
+        }
+
+        if(run3){ // 3
+            runBenchmarksMain.writeCSV("ConcurrencyUnder", concurrencyUnder, true);
+            runBenchmarksMain.writeCSV("ConcurrencyOver", concurrencyOver,true);
+        }
+
+        if(run4) {
+            // 4
+            runBenchmarksMain.writeCSV("GameOver", gameOver, true);
 //        runBenchmarksMain.writeCSV("GameOver-noReuse", gameOver,false);
-
-//        runBenchmarksMain.writeCSV("GameUnder", gameUnder,true);
+            runBenchmarksMain.writeCSV("GameUnder", gameUnder, true);
 //        runBenchmarksMain.writeCSV("GameUnder-noReuse", gameUnder,false);
-////        runBenchmarksMain.writeCSV("specOldOver", specOldOver);
-//        runBenchmarksMain.writeCSV("listOver", listOver,true);
-//        runBenchmarksMain.writeCSV("listUnder", listUnder,true);
-//        runBenchmarksMain.writeCSV("queueOver", queueOver,true);
-//        runBenchmarksMain.writeCSV("queueUnder", queueUnder,true);
-//        runBenchmarksMain.writeCSV("stackOver", stackOver,true);
-//        runBenchmarksMain.writeCSV("stackUnder", stackUnder,true);
+        }
     }
 
 
