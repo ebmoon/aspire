@@ -1,7 +1,7 @@
 grammar Spyro;
 
 @header {
-package spyro.compiler.parser;
+package aspire.compiler.parser;
 }
 
 parse : program EOF ;

@@ -1,0 +1,31 @@
+package aspire.compiler.ast.type;
+
+import aspire.compiler.ast.SpyroNode;
+
+/**
+ * Abstract class for variable data types.
+ *
+ * @author Kanghee Park &lt;khpark@cs.wisc.edu&gt;
+ */
+public abstract class Type extends SpyroNode {
+
+//    private String id;
+
+    public Type() {  }
+
+    public static boolean isPrimitiveId(String id) {
+        return (id.equals("int") || id.equals("boolean"));
+    }
+
+    public boolean isStruct() {
+        return false;
+    }
+
+    public boolean isArray() {
+        return false;
+    }
+
+//    public String toString() {
+//        return id;
+//    }
+}

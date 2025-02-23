@@ -3,10 +3,10 @@ VERSION = 0.0.1
 
 jar:
 	mvn -e compile assembly:single
-	cp target/spyro-sketch-$(VERSION)-noarch.jar spyro-sketch-$(VERSION)-noarch.jar
+	cp target/aspire-$(VERSION)-noarch.jar aspire-$(VERSION)-noarch.jar
 
 clean-parser:
-	rm src/main/java/spyro/compiler/parser/Spyro*
+	rm src/main/java/aspire/compiler/parser/Spyro*
 
 parser:
-	cd src/main/antlr/spyro/compiler/parser && $(PARSER) Spyro.g4 -o ../../../../java/spyro/compiler/parser/ -visitor -no-listener
+	cd src/main/antlr/spyro/compiler/parser && $(PARSER) Spyro.g4 -o ../../../../java/aspire/compiler/parser/ -visitor -no-listener
