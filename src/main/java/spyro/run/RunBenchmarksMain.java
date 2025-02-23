@@ -88,146 +88,146 @@ public class RunBenchmarksMain {
 
     static List<BenchmarkInfo> nondeterOver = new ArrayList<>(
             Arrays.asList(
-                    new BenchmarkInfo("shuffle3", "examples/new/nondeter/shuffle3.sp", "examples/new/nondeter/shuffle3.sk", BenchmarkInfo.OVER, 5, 10, 7),
-                    new BenchmarkInfo("shuffle4", "examples/new/nondeter/shuffle4.sp", "examples/new/nondeter/shuffle4.sk", BenchmarkInfo.OVER, 5, 12, 7),
-                    new BenchmarkInfo("shuffle5", "examples/new/nondeter/shuffle5.sp", "examples/new/nondeter/shuffle5.sk", BenchmarkInfo.OVER, 5, 16, 7)
-//                    new BenchmarkInfo("rsum", "examples/new/nondeter/rsum-over.sp", "examples/new/nondeter/rsum.sk", BenchmarkInfo.OVER, 10, 5, 7),
-//                    new BenchmarkInfo("rsquaresum", "examples/new/nondeter/rsquaresum-over.sp", "examples/new/nondeter/rsquaresum.sk", BenchmarkInfo.OVER, 10, 5, 7),
-//                    new BenchmarkInfo("rcubicsum", "examples/new/nondeter/rcubicsum-over.sp", "examples/new/nondeter/rcubicsum.sk", BenchmarkInfo.OVER, 10, 5, 7),
-//                    new BenchmarkInfo("jain1", "examples/new/nondeter/jain1-over.sp", "examples/new/nondeter/jain1.sk", BenchmarkInfo.OVER,5, 10, 7),
-//                    new BenchmarkInfo("jain2", "examples/new/nondeter/jain2-over.sp", "examples/new/nondeter/jain2.sk", BenchmarkInfo.OVER,5, 10, 7),
-//                    new BenchmarkInfo("jain4", "examples/new/nondeter/jain4-over.sp", "examples/new/nondeter/jain4.sk", BenchmarkInfo.OVER,5, 10, 7),
-//                    new BenchmarkInfo("jain6", "examples/new/nondeter/jain6-over.sp", "examples/new/nondeter/jain6.sk", BenchmarkInfo.OVER,5, 10, 7),
-//                    new BenchmarkInfo("bubble3", "examples/new/nondeter/bubble3-over.sp", "examples/new/nondeter/bubble3.sk", BenchmarkInfo.OVER, 5, 10, 7),
-//                    new BenchmarkInfo("bubble4", "examples/new/nondeter/bubble4-over.sp", "examples/new/nondeter/bubble4.sk", BenchmarkInfo.OVER, 5, 10, 7),
-//                    new BenchmarkInfo("swap3", "examples/new/nondeter/swap3-over.sp", "examples/new/nondeter/swap3.sk", BenchmarkInfo.OVER, 5, 10, 7),
-//                    new BenchmarkInfo("swap4", "examples/new/nondeter/swap4-over.sp", "examples/new/nondeter/swap4.sk", BenchmarkInfo.OVER, 5, 10, 7)
+                    new BenchmarkInfo("shuffle3", "examples/nondeter/shuffle3.sp", "examples/nondeter/shuffle3.sk", BenchmarkInfo.OVER, 5, 10, 7),
+                    new BenchmarkInfo("shuffle4", "examples/nondeter/shuffle4.sp", "examples/nondeter/shuffle4.sk", BenchmarkInfo.OVER, 5, 12, 7),
+                    new BenchmarkInfo("shuffle5", "examples/nondeter/shuffle5.sp", "examples/nondeter/shuffle5.sk", BenchmarkInfo.OVER, 5, 16, 7)
+//                    new BenchmarkInfo("rsum", "examples/nondeter/rsum-over.sp", "examples/nondeter/rsum.sk", BenchmarkInfo.OVER, 10, 5, 7),
+//                    new BenchmarkInfo("rsquaresum", "examples/nondeter/rsquaresum-over.sp", "examples/nondeter/rsquaresum.sk", BenchmarkInfo.OVER, 10, 5, 7),
+//                    new BenchmarkInfo("rcubicsum", "examples/nondeter/rcubicsum-over.sp", "examples/nondeter/rcubicsum.sk", BenchmarkInfo.OVER, 10, 5, 7),
+//                    new BenchmarkInfo("jain1", "examples/nondeter/jain1-over.sp", "examples/nondeter/jain1.sk", BenchmarkInfo.OVER,5, 10, 7),
+//                    new BenchmarkInfo("jain2", "examples/nondeter/jain2-over.sp", "examples/nondeter/jain2.sk", BenchmarkInfo.OVER,5, 10, 7),
+//                    new BenchmarkInfo("jain4", "examples/nondeter/jain4-over.sp", "examples/nondeter/jain4.sk", BenchmarkInfo.OVER,5, 10, 7),
+//                    new BenchmarkInfo("jain6", "examples/nondeter/jain6-over.sp", "examples/nondeter/jain6.sk", BenchmarkInfo.OVER,5, 10, 7),
+//                    new BenchmarkInfo("bubble3", "examples/nondeter/bubble3-over.sp", "examples/nondeter/bubble3.sk", BenchmarkInfo.OVER, 5, 10, 7),
+//                    new BenchmarkInfo("bubble4", "examples/nondeter/bubble4-over.sp", "examples/nondeter/bubble4.sk", BenchmarkInfo.OVER, 5, 10, 7),
+//                    new BenchmarkInfo("swap3", "examples/nondeter/swap3-over.sp", "examples/nondeter/swap3.sk", BenchmarkInfo.OVER, 5, 10, 7),
+//                    new BenchmarkInfo("swap4", "examples/nondeter/swap4-over.sp", "examples/nondeter/swap4.sk", BenchmarkInfo.OVER, 5, 10, 7)
 //
-//                    new BenchmarkInfo("math1", "examples/new/nondeter/math1-over.sp", "examples/new/nondeter/math.sk", BenchmarkInfo.OVER,5, 5, 7),
-//                    new BenchmarkInfo("math2", "examples/new/nondeter/math2-over.sp", "examples/new/nondeter/math.sk", BenchmarkInfo.OVER, 5, 5, 7),
-//                    new BenchmarkInfo("math3", "examples/new/nondeter/math3-over.sp", "examples/new/nondeter/math.sk", BenchmarkInfo.OVER, 5, 5, 7),
-//                    new BenchmarkInfo("math4", "examples/new/nondeter/math4-over.sp", "examples/new/nondeter/math.sk", BenchmarkInfo.OVER, 5, 5, 7),
-//                    new BenchmarkInfo("bv1", "examples/new/nondeter/bv1-over.sp", "examples/new/nondeter/bv.sk", BenchmarkInfo.OVER),
-//                    new BenchmarkInfo("bv2", "examples/new/nondeter/bv2-over.sp", "examples/new/nondeter/bv.sk", BenchmarkInfo.OVER),
-//                    new BenchmarkInfo("bv3-1", "examples/new/nondeter/bv3-1-over.sp", "examples/new/nondeter/bv.sk", BenchmarkInfo.OVER),
-//                    new BenchmarkInfo("bv3-2", "examples/new/nondeter/bv3-2-over.sp", "examples/new/nondeter/bv.sk", BenchmarkInfo.OVER),
-//                    new BenchmarkInfo("bv4", "examples/new/nondeter/bv4-over.sp", "examples/new/nondeter/bv.sk", BenchmarkInfo.OVER)
+//                    new BenchmarkInfo("math1", "examples/nondeter/math1-over.sp", "examples/nondeter/math.sk", BenchmarkInfo.OVER,5, 5, 7),
+//                    new BenchmarkInfo("math2", "examples/nondeter/math2-over.sp", "examples/nondeter/math.sk", BenchmarkInfo.OVER, 5, 5, 7),
+//                    new BenchmarkInfo("math3", "examples/nondeter/math3-over.sp", "examples/nondeter/math.sk", BenchmarkInfo.OVER, 5, 5, 7),
+//                    new BenchmarkInfo("math4", "examples/nondeter/math4-over.sp", "examples/nondeter/math.sk", BenchmarkInfo.OVER, 5, 5, 7),
+//                    new BenchmarkInfo("bv1", "examples/nondeter/bv1-over.sp", "examples/nondeter/bv.sk", BenchmarkInfo.OVER),
+//                    new BenchmarkInfo("bv2", "examples/nondeter/bv2-over.sp", "examples/nondeter/bv.sk", BenchmarkInfo.OVER),
+//                    new BenchmarkInfo("bv3-1", "examples/nondeter/bv3-1-over.sp", "examples/nondeter/bv.sk", BenchmarkInfo.OVER),
+//                    new BenchmarkInfo("bv3-2", "examples/nondeter/bv3-2-over.sp", "examples/nondeter/bv.sk", BenchmarkInfo.OVER),
+//                    new BenchmarkInfo("bv4", "examples/nondeter/bv4-over.sp", "examples/nondeter/bv.sk", BenchmarkInfo.OVER)
             )
 
     );
 
     static List<BenchmarkInfo> nondeterOverOld = new ArrayList<>(
             Arrays.asList(
-                    new BenchmarkInfo("bubble3", "examples/new/nondeter/bubble3-over.sp", "examples/new/nondeter/bubble3.sk",BenchmarkInfo.OLD_OVER,5,10,7),
-                    new BenchmarkInfo("bubble4", "examples/new/nondeter/bubble4-over.sp", "examples/new/nondeter/bubble4.sk",BenchmarkInfo.OLD_OVER,5,10,7),
-                    new BenchmarkInfo("swap3", "examples/new/nondeter/swap3-over.sp", "examples/new/nondeter/swap3.sk", BenchmarkInfo.OLD_OVER, 5, 10, 7),
-                    new BenchmarkInfo("swap4", "examples/new/nondeter/swap4-over.sp", "examples/new/nondeter/swap4.sk", BenchmarkInfo.OLD_OVER, 5, 10, 7),
-                    new BenchmarkInfo("math1", "examples/new/nondeter/math1-over.sp", "examples/new/nondeter/math.sk", BenchmarkInfo.OVER,5, 5, 7),
-                    new BenchmarkInfo("math2", "examples/new/nondeter/math2-over.sp", "examples/new/nondeter/math.sk", BenchmarkInfo.OVER, 5, 5, 7),
-                    new BenchmarkInfo("math3", "examples/new/nondeter/math3-over.sp", "examples/new/nondeter/math.sk", BenchmarkInfo.OVER, 5, 5, 7),
-                    new BenchmarkInfo("math4", "examples/new/nondeter/math4-over.sp", "examples/new/nondeter/math.sk", BenchmarkInfo.OVER, 5, 5, 7),
-                    new BenchmarkInfo("bv1", "examples/new/nondeter/bv1-over.sp", "examples/new/nondeter/bv.sk", BenchmarkInfo.OVER),
-                    new BenchmarkInfo("bv2", "examples/new/nondeter/bv2-over.sp", "examples/new/nondeter/bv.sk", BenchmarkInfo.OVER),
-                    new BenchmarkInfo("bv3-1", "examples/new/nondeter/bv3-1-over.sp", "examples/new/nondeter/bv.sk", BenchmarkInfo.OVER),
-                    new BenchmarkInfo("bv3-2", "examples/new/nondeter/bv3-2-over.sp", "examples/new/nondeter/bv.sk", BenchmarkInfo.OVER)
-//                    new BenchmarkInfo("bv4", "examples/new/nondeter/bv4-over.sp", "examples/new/nondeter/bv.sk", BenchmarkInfo.OVER)
+                    new BenchmarkInfo("bubble3", "examples/nondeter/bubble3-over.sp", "examples/nondeter/bubble3.sk",BenchmarkInfo.OLD_OVER,5,10,7),
+                    new BenchmarkInfo("bubble4", "examples/nondeter/bubble4-over.sp", "examples/nondeter/bubble4.sk",BenchmarkInfo.OLD_OVER,5,10,7),
+                    new BenchmarkInfo("swap3", "examples/nondeter/swap3-over.sp", "examples/nondeter/swap3.sk", BenchmarkInfo.OLD_OVER, 5, 10, 7),
+                    new BenchmarkInfo("swap4", "examples/nondeter/swap4-over.sp", "examples/nondeter/swap4.sk", BenchmarkInfo.OLD_OVER, 5, 10, 7),
+                    new BenchmarkInfo("math1", "examples/nondeter/math1-over.sp", "examples/nondeter/math.sk", BenchmarkInfo.OVER,5, 5, 7),
+                    new BenchmarkInfo("math2", "examples/nondeter/math2-over.sp", "examples/nondeter/math.sk", BenchmarkInfo.OVER, 5, 5, 7),
+                    new BenchmarkInfo("math3", "examples/nondeter/math3-over.sp", "examples/nondeter/math.sk", BenchmarkInfo.OVER, 5, 5, 7),
+                    new BenchmarkInfo("math4", "examples/nondeter/math4-over.sp", "examples/nondeter/math.sk", BenchmarkInfo.OVER, 5, 5, 7),
+                    new BenchmarkInfo("bv1", "examples/nondeter/bv1-over.sp", "examples/nondeter/bv.sk", BenchmarkInfo.OVER),
+                    new BenchmarkInfo("bv2", "examples/nondeter/bv2-over.sp", "examples/nondeter/bv.sk", BenchmarkInfo.OVER),
+                    new BenchmarkInfo("bv3-1", "examples/nondeter/bv3-1-over.sp", "examples/nondeter/bv.sk", BenchmarkInfo.OVER),
+                    new BenchmarkInfo("bv3-2", "examples/nondeter/bv3-2-over.sp", "examples/nondeter/bv.sk", BenchmarkInfo.OVER)
+//                    new BenchmarkInfo("bv4", "examples/nondeter/bv4-over.sp", "examples/nondeter/bv.sk", BenchmarkInfo.OVER)
             )
     );
 
     static List<BenchmarkInfo> nondeterUnder = new ArrayList<>(
             Arrays.asList(
-                    new BenchmarkInfo("shuffle3", "examples/new/nondeter/shuffle3.sp", "examples/new/nondeter/shuffle3.sk", BenchmarkInfo.UNDER, 5, 10, 7),
-                    new BenchmarkInfo("shuffle4", "examples/new/nondeter/shuffle4.sp", "examples/new/nondeter/shuffle4.sk", BenchmarkInfo.UNDER, 5, 12, 7),
-                    new BenchmarkInfo("shuffle5", "examples/new/nondeter/shuffle5.sp", "examples/new/nondeter/shuffle5.sk", BenchmarkInfo.UNDER, 5, 16, 7)
-//                    new BenchmarkInfo("rsum", "examples/new/nondeter/rsum-under.sp", "examples/new/nondeter/rsum.sk", BenchmarkInfo.UNDER, 10, 5, 7),
-//                    new BenchmarkInfo("rsquaresum", "examples/new/nondeter/rsquaresum-under.sp", "examples/new/nondeter/rsquaresum.sk", BenchmarkInfo.UNDER, 10, 5, 7),
-//                    new BenchmarkInfo("rcubicsum", "examples/new/nondeter/rcubicsum-under.sp", "examples/new/nondeter/rcubicsum.sk", BenchmarkInfo.UNDER, 10, 5, 7),
-//                    new BenchmarkInfo("jain1", "examples/new/nondeter/jain1-under.sp", "examples/new/nondeter/jain1.sk", BenchmarkInfo.UNDER,5, 10, 7),
-//                    new BenchmarkInfo("jain2", "examples/new/nondeter/jain2-under.sp", "examples/new/nondeter/jain2.sk", BenchmarkInfo.UNDER,5, 10, 7),
-//                    new BenchmarkInfo("jain4", "examples/new/nondeter/jain4-under.sp", "examples/new/nondeter/jain4.sk", BenchmarkInfo.UNDER,5, 10, 7),
-//                    new BenchmarkInfo("jain6", "examples/new/nondeter/jain6-under.sp", "examples/new/nondeter/jain6.sk", BenchmarkInfo.UNDER,5, 10, 7),
-//                    new BenchmarkInfo("bubble3", "examples/new/nondeter/bubble3-under.sp", "examples/new/nondeter/bubble3.sk", BenchmarkInfo.UNDER, 5, 10, 7),
-//                    new BenchmarkInfo("bubble4", "examples/new/nondeter/bubble4-under.sp", "examples/new/nondeter/bubble4.sk", BenchmarkInfo.UNDER, 5, 10, 7),
-//                    new BenchmarkInfo("swap3", "examples/new/nondeter/swap3-under.sp", "examples/new/nondeter/swap3.sk", BenchmarkInfo.UNDER, 5, 10, 7),
-//                    new BenchmarkInfo("swap4", "examples/new/nondeter/swap4-under.sp", "examples/new/nondeter/swap4.sk", BenchmarkInfo.UNDER, 5, 10, 7)
-//                    new BenchmarkInfo("hashfunc", "examples/new/inclogic/hashfunc.sp", "examples/new/inclogic/hashfunc.sk", BenchmarkInfo.UNDER, 5, 10, 7),
-//                    new BenchmarkInfo("coin", "examples/new/inclogic/coin.sp", "examples/new/inclogic/coin.sk", BenchmarkInfo.UNDER, 10, 10, 7),
-//                    new BenchmarkInfo("inc-logic-wpp1", "examples/new/inclogic/inc-logic-wpp1.sp", "examples/new/inclogic/inc-logic-wpp1.sk", BenchmarkInfo.UNDER),
-//                    new BenchmarkInfo("inc-logic-wpp2", "examples/new/inclogic/inc-logic-wpp2.sp", "examples/new/inclogic/inc-logic-wpp2.sk", BenchmarkInfo.UNDER),
-//                    new BenchmarkInfo("inc-logic-wpp3", "examples/new/inclogic/inc-logic-wpp3.sp", "examples/new/inclogic/inc-logic-wpp3.sk", BenchmarkInfo.UNDER)
-//                    new BenchmarkInfo("math1", "examples/new/nondeter/math1-under.sp", "examples/new/nondeter/math.sk", BenchmarkInfo.UNDER,5,  5, 7),
-//                    new BenchmarkInfo("math2", "examples/new/nondeter/math2-under.sp", "examples/new/nondeter/math.sk", BenchmarkInfo.UNDER,5,  5, 7),
-//                    new BenchmarkInfo("math3", "examples/new/nondeter/math3-under.sp", "examples/new/nondeter/math.sk", BenchmarkInfo.UNDER, 5, 5, 7),
-//                    new BenchmarkInfo("math4", "examples/new/nondeter/math4-under.sp", "examples/new/nondeter/math.sk", BenchmarkInfo.UNDER, 5, 5, 7),
-//                    new BenchmarkInfo("bv1", "examples/new/nondeter/bv1-under.sp", "examples/new/nondeter/bv.sk", BenchmarkInfo.UNDER),
-//                    new BenchmarkInfo("bv2", "examples/new/nondeter/bv2-under.sp", "examples/new/nondeter/bv.sk", BenchmarkInfo.UNDER),
-//                    new BenchmarkInfo("bv3-1", "examples/new/nondeter/bv3-1-under.sp", "examples/new/nondeter/bv.sk", BenchmarkInfo.UNDER),
-//                    new BenchmarkInfo("bv3-2", "examples/new/nondeter/bv3-2-under.sp", "examples/new/nondeter/bv.sk", BenchmarkInfo.UNDER),
-//                    new BenchmarkInfo("bv4", "examples/new/nondeter/bv4-under.sp", "examples/new/nondeter/bv.sk", BenchmarkInfo.UNDER)
+                    new BenchmarkInfo("shuffle3", "examples/nondeter/shuffle3.sp", "examples/nondeter/shuffle3.sk", BenchmarkInfo.UNDER, 5, 10, 7),
+                    new BenchmarkInfo("shuffle4", "examples/nondeter/shuffle4.sp", "examples/nondeter/shuffle4.sk", BenchmarkInfo.UNDER, 5, 12, 7),
+                    new BenchmarkInfo("shuffle5", "examples/nondeter/shuffle5.sp", "examples/nondeter/shuffle5.sk", BenchmarkInfo.UNDER, 5, 16, 7)
+//                    new BenchmarkInfo("rsum", "examples/nondeter/rsum-under.sp", "examples/nondeter/rsum.sk", BenchmarkInfo.UNDER, 10, 5, 7),
+//                    new BenchmarkInfo("rsquaresum", "examples/nondeter/rsquaresum-under.sp", "examples/nondeter/rsquaresum.sk", BenchmarkInfo.UNDER, 10, 5, 7),
+//                    new BenchmarkInfo("rcubicsum", "examples/nondeter/rcubicsum-under.sp", "examples/nondeter/rcubicsum.sk", BenchmarkInfo.UNDER, 10, 5, 7),
+//                    new BenchmarkInfo("jain1", "examples/nondeter/jain1-under.sp", "examples/nondeter/jain1.sk", BenchmarkInfo.UNDER,5, 10, 7),
+//                    new BenchmarkInfo("jain2", "examples/nondeter/jain2-under.sp", "examples/nondeter/jain2.sk", BenchmarkInfo.UNDER,5, 10, 7),
+//                    new BenchmarkInfo("jain4", "examples/nondeter/jain4-under.sp", "examples/nondeter/jain4.sk", BenchmarkInfo.UNDER,5, 10, 7),
+//                    new BenchmarkInfo("jain6", "examples/nondeter/jain6-under.sp", "examples/nondeter/jain6.sk", BenchmarkInfo.UNDER,5, 10, 7),
+//                    new BenchmarkInfo("bubble3", "examples/nondeter/bubble3-under.sp", "examples/nondeter/bubble3.sk", BenchmarkInfo.UNDER, 5, 10, 7),
+//                    new BenchmarkInfo("bubble4", "examples/nondeter/bubble4-under.sp", "examples/nondeter/bubble4.sk", BenchmarkInfo.UNDER, 5, 10, 7),
+//                    new BenchmarkInfo("swap3", "examples/nondeter/swap3-under.sp", "examples/nondeter/swap3.sk", BenchmarkInfo.UNDER, 5, 10, 7),
+//                    new BenchmarkInfo("swap4", "examples/nondeter/swap4-under.sp", "examples/nondeter/swap4.sk", BenchmarkInfo.UNDER, 5, 10, 7)
+//                    new BenchmarkInfo("hashfunc", "examples/inclogic/hashfunc.sp", "examples/inclogic/hashfunc.sk", BenchmarkInfo.UNDER, 5, 10, 7),
+//                    new BenchmarkInfo("coin", "examples/inclogic/coin.sp", "examples/inclogic/coin.sk", BenchmarkInfo.UNDER, 10, 10, 7),
+//                    new BenchmarkInfo("inc-logic-wpp1", "examples/inclogic/inc-logic-wpp1.sp", "examples/inclogic/inc-logic-wpp1.sk", BenchmarkInfo.UNDER),
+//                    new BenchmarkInfo("inc-logic-wpp2", "examples/inclogic/inc-logic-wpp2.sp", "examples/inclogic/inc-logic-wpp2.sk", BenchmarkInfo.UNDER),
+//                    new BenchmarkInfo("inc-logic-wpp3", "examples/inclogic/inc-logic-wpp3.sp", "examples/inclogic/inc-logic-wpp3.sk", BenchmarkInfo.UNDER)
+//                    new BenchmarkInfo("math1", "examples/nondeter/math1-under.sp", "examples/nondeter/math.sk", BenchmarkInfo.UNDER,5,  5, 7),
+//                    new BenchmarkInfo("math2", "examples/nondeter/math2-under.sp", "examples/nondeter/math.sk", BenchmarkInfo.UNDER,5,  5, 7),
+//                    new BenchmarkInfo("math3", "examples/nondeter/math3-under.sp", "examples/nondeter/math.sk", BenchmarkInfo.UNDER, 5, 5, 7),
+//                    new BenchmarkInfo("math4", "examples/nondeter/math4-under.sp", "examples/nondeter/math.sk", BenchmarkInfo.UNDER, 5, 5, 7),
+//                    new BenchmarkInfo("bv1", "examples/nondeter/bv1-under.sp", "examples/nondeter/bv.sk", BenchmarkInfo.UNDER),
+//                    new BenchmarkInfo("bv2", "examples/nondeter/bv2-under.sp", "examples/nondeter/bv.sk", BenchmarkInfo.UNDER),
+//                    new BenchmarkInfo("bv3-1", "examples/nondeter/bv3-1-under.sp", "examples/nondeter/bv.sk", BenchmarkInfo.UNDER),
+//                    new BenchmarkInfo("bv3-2", "examples/nondeter/bv3-2-under.sp", "examples/nondeter/bv.sk", BenchmarkInfo.UNDER),
+//                    new BenchmarkInfo("bv4", "examples/nondeter/bv4-under.sp", "examples/nondeter/bv.sk", BenchmarkInfo.UNDER)
             )
     );
     static List<BenchmarkInfo> concurrencyOver = new ArrayList<>(
             Arrays.asList(
-                    new BenchmarkInfo("philosopher", "examples/new/concurrency/philosopher1-over.sp", "examples/new/concurrency/philosopher1.sk", BenchmarkInfo.OVER, 5, 15, 5),
-                    new BenchmarkInfo("race1", "examples/new/concurrency/race1-over.sp", "examples/new/concurrency/race1.sk", BenchmarkInfo.OVER, 5, 10, 5),
-                    new BenchmarkInfo("race2", "examples/new/concurrency/race2-over.sp", "examples/new/concurrency/race2.sk", BenchmarkInfo.OVER, 5, 15, 5),
-                    new BenchmarkInfo("race3", "examples/new/concurrency/race3-over.sp", "examples/new/concurrency/race3.sk", BenchmarkInfo.OVER, 5, 20, 5),
-                    new BenchmarkInfo("resource1", "examples/new/concurrency/resource1-over.sp", "examples/new/concurrency/resource1.sk", BenchmarkInfo.OVER, 5, 5, 5),
-                    new BenchmarkInfo("resource2", "examples/new/concurrency/resource2-over.sp", "examples/new/concurrency/resource2.sk", BenchmarkInfo.OVER, 5, 10, 5),
-                    new BenchmarkInfo("resource3", "examples/new/concurrency/resource3-over.sp", "examples/new/concurrency/resource3.sk", BenchmarkInfo.OVER, 5, 20, 5),
-                    new BenchmarkInfo("resource4", "examples/new/concurrency/resource4-over.sp", "examples/new/concurrency/resource4.sk", BenchmarkInfo.OVER, 5, 20, 5)
+                    new BenchmarkInfo("philosopher", "examples/concurrency/philosopher1-over.sp", "examples/concurrency/philosopher1.sk", BenchmarkInfo.OVER, 5, 15, 5),
+                    new BenchmarkInfo("race1", "examples/concurrency/race1-over.sp", "examples/concurrency/race1.sk", BenchmarkInfo.OVER, 5, 10, 5),
+                    new BenchmarkInfo("race2", "examples/concurrency/race2-over.sp", "examples/concurrency/race2.sk", BenchmarkInfo.OVER, 5, 15, 5),
+                    new BenchmarkInfo("race3", "examples/concurrency/race3-over.sp", "examples/concurrency/race3.sk", BenchmarkInfo.OVER, 5, 20, 5),
+                    new BenchmarkInfo("resource1", "examples/concurrency/resource1-over.sp", "examples/concurrency/resource1.sk", BenchmarkInfo.OVER, 5, 5, 5),
+                    new BenchmarkInfo("resource2", "examples/concurrency/resource2-over.sp", "examples/concurrency/resource2.sk", BenchmarkInfo.OVER, 5, 10, 5),
+                    new BenchmarkInfo("resource3", "examples/concurrency/resource3-over.sp", "examples/concurrency/resource3.sk", BenchmarkInfo.OVER, 5, 20, 5),
+                    new BenchmarkInfo("resource4", "examples/concurrency/resource4-over.sp", "examples/concurrency/resource4.sk", BenchmarkInfo.OVER, 5, 20, 5)
             )
     );
 
     static List<BenchmarkInfo> concurrencyUnder = new ArrayList<>(
             Arrays.asList(
-                    new BenchmarkInfo("philosopher", "examples/new/concurrency/philosopher1-under.sp", "examples/new/concurrency/philosopher1.sk", BenchmarkInfo.UNDER, 5, 15, 5),
-                    new BenchmarkInfo("race1", "examples/new/concurrency/race1-under.sp", "examples/new/concurrency/race1.sk", BenchmarkInfo.UNDER, 5, 10, 5),
-                    new BenchmarkInfo("race2", "examples/new/concurrency/race2-under.sp", "examples/new/concurrency/race2.sk", BenchmarkInfo.UNDER, 5, 15, 5),
-                    new BenchmarkInfo("race3", "examples/new/concurrency/race3-under.sp", "examples/new/concurrency/race3.sk", BenchmarkInfo.UNDER, 5, 20, 5),
-                    new BenchmarkInfo("resource1", "examples/new/concurrency/resource1-under.sp", "examples/new/concurrency/resource1.sk", BenchmarkInfo.UNDER, 5, 5, 5),
-                    new BenchmarkInfo("resource2", "examples/new/concurrency/resource2-under.sp", "examples/new/concurrency/resource2.sk", BenchmarkInfo.UNDER, 5, 10, 5),
-                    new BenchmarkInfo("resource3", "examples/new/concurrency/resource3-under.sp", "examples/new/concurrency/resource3.sk", BenchmarkInfo.UNDER, 5, 20, 5),
-                    new BenchmarkInfo("resource4", "examples/new/concurrency/resource4-under.sp", "examples/new/concurrency/resource4.sk", BenchmarkInfo.UNDER, 5, 20, 5)
+                    new BenchmarkInfo("philosopher", "examples/concurrency/philosopher1-under.sp", "examples/concurrency/philosopher1.sk", BenchmarkInfo.UNDER, 5, 15, 5),
+                    new BenchmarkInfo("race1", "examples/concurrency/race1-under.sp", "examples/concurrency/race1.sk", BenchmarkInfo.UNDER, 5, 10, 5),
+                    new BenchmarkInfo("race2", "examples/concurrency/race2-under.sp", "examples/concurrency/race2.sk", BenchmarkInfo.UNDER, 5, 15, 5),
+                    new BenchmarkInfo("race3", "examples/concurrency/race3-under.sp", "examples/concurrency/race3.sk", BenchmarkInfo.UNDER, 5, 20, 5),
+                    new BenchmarkInfo("resource1", "examples/concurrency/resource1-under.sp", "examples/concurrency/resource1.sk", BenchmarkInfo.UNDER, 5, 5, 5),
+                    new BenchmarkInfo("resource2", "examples/concurrency/resource2-under.sp", "examples/concurrency/resource2.sk", BenchmarkInfo.UNDER, 5, 10, 5),
+                    new BenchmarkInfo("resource3", "examples/concurrency/resource3-under.sp", "examples/concurrency/resource3.sk", BenchmarkInfo.UNDER, 5, 20, 5),
+                    new BenchmarkInfo("resource4", "examples/concurrency/resource4-under.sp", "examples/concurrency/resource4.sk", BenchmarkInfo.UNDER, 5, 20, 5)
             )
     );
     static List<BenchmarkInfo> incLogic = new ArrayList<>(
             Arrays.asList(
-                    new BenchmarkInfo("inc-logic1", "examples/new/inclogic/inc-logic1.sp", "examples/new/inclogic/inc-logic1.sk", BenchmarkInfo.UNDER),
-                    new BenchmarkInfo("inc-logic2", "examples/new/inclogic/inc-logic2.sp", "examples/new/inclogic/inc-logic2.sk", BenchmarkInfo.UNDER),
-//                    new BenchmarkInfo("inc-logic3-0", "examples/new/inclogic/inc-logic3-0.sp", "examples/new/inclogic/inc-logic3.sk", BenchmarkInfo.UNDER),
-                    new BenchmarkInfo("inc-logic3-1", "examples/new/inclogic/inc-logic3-1.sp", "examples/new/inclogic/inc-logic3.sk", BenchmarkInfo.UNDER),
-//                    new BenchmarkInfo("inc-logic4-0", "examples/new/inclogic/inc-logic4-0.sp", "examples/new/inclogic/inc-logic4.sk", BenchmarkInfo.UNDER),
-//                    new BenchmarkInfo("inc-logic4-1", "examples/new/inclogic/inc-logic4-1.sp", "examples/new/inclogic/inc-logic4.sk", BenchmarkInfo.UNDER),
-                    new BenchmarkInfo("inc-logic-wpp1", "examples/new/inclogic/inc-logic-wpp1.sp", "examples/new/inclogic/inc-logic-wpp1.sk", BenchmarkInfo.UNDER),
-                    new BenchmarkInfo("inc-logic-wpp2", "examples/new/inclogic/inc-logic-wpp2.sp", "examples/new/inclogic/inc-logic-wpp2.sk", BenchmarkInfo.UNDER),
-                    new BenchmarkInfo("inc-logic-wpp3", "examples/new/inclogic/inc-logic-wpp3.sp", "examples/new/inclogic/inc-logic-wpp3.sk", BenchmarkInfo.UNDER),
-                    new BenchmarkInfo("arith1-wr", "examples/new/inclogic/arith1-wr.sp", "examples/new/inclogic/arith1-wr.sk", BenchmarkInfo.UNDER),
-                    new BenchmarkInfo("arith2-wr", "examples/new/inclogic/arith2-wr.sp", "examples/new/inclogic/arith2-wr.sk", BenchmarkInfo.UNDER),
-                    new BenchmarkInfo("arith1-wpp", "examples/new/inclogic/arith1-wpp.sp", "examples/new/inclogic/arith1-wpp.sk", BenchmarkInfo.UNDER),
-                    new BenchmarkInfo("arith2-wpp", "examples/new/inclogic/arith2-wpp.sp", "examples/new/inclogic/arith2-wpp.sk", BenchmarkInfo.UNDER),
-                    new BenchmarkInfo("hashfunc", "examples/new/inclogic/hashfunc.sp", "examples/new/inclogic/hashfunc.sk", BenchmarkInfo.UNDER, 5, 10, 7),
-                    new BenchmarkInfo("coin", "examples/new/inclogic/coin.sp", "examples/new/inclogic/coin.sk", BenchmarkInfo.UNDER, 10, 10, 7)
+                    new BenchmarkInfo("inc-logic1", "examples/inclogic/inc-logic1.sp", "examples/inclogic/inc-logic1.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("inc-logic2", "examples/inclogic/inc-logic2.sp", "examples/inclogic/inc-logic2.sk", BenchmarkInfo.UNDER),
+//                    new BenchmarkInfo("inc-logic3-0", "examples/inclogic/inc-logic3-0.sp", "examples/inclogic/inc-logic3.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("inc-logic3-1", "examples/inclogic/inc-logic3-1.sp", "examples/inclogic/inc-logic3.sk", BenchmarkInfo.UNDER),
+//                    new BenchmarkInfo("inc-logic4-0", "examples/inclogic/inc-logic4-0.sp", "examples/inclogic/inc-logic4.sk", BenchmarkInfo.UNDER),
+//                    new BenchmarkInfo("inc-logic4-1", "examples/inclogic/inc-logic4-1.sp", "examples/inclogic/inc-logic4.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("inc-logic-wpp1", "examples/inclogic/inc-logic-wpp1.sp", "examples/inclogic/inc-logic-wpp1.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("inc-logic-wpp2", "examples/inclogic/inc-logic-wpp2.sp", "examples/inclogic/inc-logic-wpp2.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("inc-logic-wpp3", "examples/inclogic/inc-logic-wpp3.sp", "examples/inclogic/inc-logic-wpp3.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("arith1-wr", "examples/inclogic/arith1-wr.sp", "examples/inclogic/arith1-wr.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("arith2-wr", "examples/inclogic/arith2-wr.sp", "examples/inclogic/arith2-wr.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("arith1-wpp", "examples/inclogic/arith1-wpp.sp", "examples/inclogic/arith1-wpp.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("arith2-wpp", "examples/inclogic/arith2-wpp.sp", "examples/inclogic/arith2-wpp.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("hashfunc", "examples/inclogic/hashfunc.sp", "examples/inclogic/hashfunc.sk", BenchmarkInfo.UNDER, 5, 10, 7),
+                    new BenchmarkInfo("coin", "examples/inclogic/coin.sp", "examples/inclogic/coin.sk", BenchmarkInfo.UNDER, 10, 10, 7)
 
                     )
     );
     static List<BenchmarkInfo> gameOver = new ArrayList<>(
             Arrays.asList(
-//                    new BenchmarkInfo("num1p", "examples/new/game/num1p-over.sp", "examples/new/game/num1p.sk", BenchmarkInfo.OVER, 5, 10, 7),
-//                    new BenchmarkInfo("num2", "examples/new/game/num2-over.sp", "examples/new/game/num2.sk", BenchmarkInfo.OVER, 5, 10, 7),
-//                    new BenchmarkInfo("rg", "examples/new/game/rg-over.sp", "examples/new/game/rg.sk", BenchmarkInfo.OVER, 5, 10, 7),
-//                    new BenchmarkInfo("nim2", "examples/new/game/nim2-over.sp", "examples/new/game/nim2.sk", BenchmarkInfo.OVER, 5, 15  , 7),
-                    new BenchmarkInfo("temp", "examples/new/game/temp-over.sp", "examples/new/game/temp.sk", BenchmarkInfo.OVER, 5, 20, 7)
+//                    new BenchmarkInfo("num1p", "examples/game/num1p-over.sp", "examples/game/num1p.sk", BenchmarkInfo.OVER, 5, 10, 7),
+//                    new BenchmarkInfo("num2", "examples/game/num2-over.sp", "examples/game/num2.sk", BenchmarkInfo.OVER, 5, 10, 7),
+//                    new BenchmarkInfo("rg", "examples/game/rg-over.sp", "examples/game/rg.sk", BenchmarkInfo.OVER, 5, 10, 7),
+//                    new BenchmarkInfo("nim2", "examples/game/nim2-over.sp", "examples/game/nim2.sk", BenchmarkInfo.OVER, 5, 15  , 7),
+                    new BenchmarkInfo("temp", "examples/game/temp-over.sp", "examples/game/temp.sk", BenchmarkInfo.OVER, 5, 20, 7)
 
             )
     );
     static List<BenchmarkInfo> gameUnder = new ArrayList<>(
             Arrays.asList(
-                    new BenchmarkInfo("num1p", "examples/new/game/num1p-under.sp", "examples/new/game/num1p.sk", BenchmarkInfo.UNDER, 5, 10, 7),
-                    new BenchmarkInfo("num2", "examples/new/game/num2-under.sp", "examples/new/game/num2.sk", BenchmarkInfo.UNDER, 5, 10, 7),
-                    new BenchmarkInfo("rg", "examples/new/game/rg-under.sp", "examples/new/game/rg.sk", BenchmarkInfo.UNDER, 5, 10, 7),
-                    new BenchmarkInfo("nim2", "examples/new/game/nim2-under.sp", "examples/new/game/nim2.sk", BenchmarkInfo.UNDER, 5, 15  , 7),
-                    new BenchmarkInfo("temp", "examples/new/game/temp-under.sp", "examples/new/game/temp.sk", BenchmarkInfo.UNDER, 5, 20, 7)
+                    new BenchmarkInfo("num1p", "examples/game/num1p-under.sp", "examples/game/num1p.sk", BenchmarkInfo.UNDER, 5, 10, 7),
+                    new BenchmarkInfo("num2", "examples/game/num2-under.sp", "examples/game/num2.sk", BenchmarkInfo.UNDER, 5, 10, 7),
+                    new BenchmarkInfo("rg", "examples/game/rg-under.sp", "examples/game/rg.sk", BenchmarkInfo.UNDER, 5, 10, 7),
+                    new BenchmarkInfo("nim2", "examples/game/nim2-under.sp", "examples/game/nim2.sk", BenchmarkInfo.UNDER, 5, 15  , 7),
+                    new BenchmarkInfo("temp", "examples/game/temp-under.sp", "examples/game/temp.sk", BenchmarkInfo.UNDER, 5, 20, 7)
             )
     );
 
