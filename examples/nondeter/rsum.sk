@@ -1,0 +1,28 @@
+struct NDArray {
+    int idx;
+    int[16] d;
+}
+
+generator void genNDArray(ref NDArray arr) {
+    arr = new NDArray(
+        idx = 0,
+        d = { ??(1), ??(1), ??(1), ??(1)
+            , ??(1), ??(1), ??(1), ??(1)
+            , ??(1), ??(1), ??(1), ??(1)
+            , ??(1), ??(1), ??(1), ??(1)});
+}
+
+int nondet(ref NDArray h) {
+    int ret = h.d[h.idx];
+    h.idx++;
+    return ret;
+}
+
+void rsum(int n, NDArray h, ref int s) {
+    if(n <= 0) {
+        s = n; return;
+    }
+    rsum(n - 1, h, s);
+    if(nondet(h) != 0)
+        s = s + n;
+}

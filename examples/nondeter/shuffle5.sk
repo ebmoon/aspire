@@ -1,0 +1,64 @@
+struct NDArray {
+    int idx;
+    int[20] d;
+}
+
+generator void genNDArray(ref NDArray arr) {
+    arr = new NDArray(
+        idx = 0,
+        d = { ??(3), ??(3), ??(3), ??(3)
+            , ??(3), ??(3), ??(3), ??(3)
+            , ??(3), ??(3), ??(3), ??(3)
+            , ??(3), ??(3), ??(3), ??(3)
+            , ??(3), ??(3), ??(3), ??(3)});
+}
+
+int nondet(ref NDArray h) {
+    int ret = h.d[h.idx];
+    h.idx++;
+    return ret;
+}
+
+struct Array {
+    int[5] d;
+}
+
+generator void genArray(ref Array arr) {
+    arr = new Array(d = {??(3), ??(3), ??(3), ??(3), ??(3)});
+}
+
+void Array_equal(Array A0, Array A1, ref boolean ret) {
+    int N = 5;
+    ret = true;
+    for(int i = 0; i < N; i++)
+        if(A0.d[i] != A1.d[i])
+            ret = false;
+}
+
+void swap(ref int a, ref int b) {
+    int tmp = a;
+    a = b;
+    b = tmp;
+}
+
+void sort(Array A, ref Array A_out) {
+    int N = 5;
+    A_out = new Array(d = A.d);
+    for(int i = 1; i < N; i++)
+        for(int j = 0; j < N - i; j++)
+            if(A_out.d[j] > A_out.d[j+1]) {
+                swap(A_out.d[j], A_out.d[j+1]);
+            }
+}
+
+void shuffle(Array A, NDArray h, ref Array A_out) {
+    int N = 5;
+    A_out = new Array(d = A.d);
+    for(int i = N - 1; i > 0; i--)
+    {
+        int x = nondet(h) % (i + 1);
+        // int y = nondet(h) % N;
+        swap(A_out.d[x], A_out.d[i]);
+    }
+}
+

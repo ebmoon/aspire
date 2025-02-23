@@ -1,0 +1,14 @@
+void remhash(int a, int x, int M, ref int o){
+    o = (a*x)%M;
+}
+
+void lt0(int a, ref boolean o) {
+    o = a < 0;
+}
+
+void isPrime(int M, ref boolean ret) {
+    ret = M > 1;
+    for(int i = 2; i*i <= M; i++)
+        if(M % i == 0)
+            ret = false;
+}

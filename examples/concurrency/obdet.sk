@@ -1,0 +1,52 @@
+/* Thread 0 */
+// 0:
+// 1:
+
+/* Thread 1 */
+// 0:
+// 1:
+
+struct RandomBits {
+    int[20] d;
+}
+
+generator void genRandomBits(ref RandomBits h)
+{
+    h = new RandomBits(
+        d = { ??(1), ??(1), ??(1), ??(1), ??(1)
+            , ??(1), ??(1), ??(1), ??(1), ??(1)
+            , ??(1), ??(1), ??(1), ??(1), ??(1)
+            , ??(1), ??(1), ??(1), ??(1), ??(1)});
+}
+
+
+void controller(int i, int h, RandomBits H, ref int o) {
+    int pc0 = 0, pc1 = 0;
+    for(int t = 4; t >= 0; t--) {
+        int turn = H.d[i];
+        if((turn == 1 && pc1 == 2) || (turn == 0 && pc0 == 2))
+            turn = 1 - turn;
+
+        if(turn == 0) {
+            if(pc0 == 0) {
+                if (h == 1)
+                    i = i + 1;
+            }
+            if(pc0 == 1) {
+                i = i;
+            }
+            pc0++;
+        }
+        else {
+            if(pc1 == 0) {
+                if (h == 1)
+                    i = i - 1;
+            }
+            if(pc1 == 1) {
+                i = i;
+            }
+            pc1++;
+        }
+    }
+    o = i;
+}
