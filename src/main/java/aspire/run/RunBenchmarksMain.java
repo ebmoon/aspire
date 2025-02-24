@@ -155,7 +155,7 @@ public class RunBenchmarksMain {
                     new BenchmarkInfo("num1p", "examples/game/num1p-over.sp", "examples/game/num1p.sk", BenchmarkInfo.OVER, 5, 10, 7),
                     new BenchmarkInfo("num2", "examples/game/num2-over.sp", "examples/game/num2.sk", BenchmarkInfo.OVER, 5, 10, 7),
                     new BenchmarkInfo("rg", "examples/game/rg-over.sp", "examples/game/rg.sk", BenchmarkInfo.OVER, 5, 10, 7),
-                    new BenchmarkInfo("nim2", "examples/game/nim2-over.sp", "examples/game/nim2.sk", BenchmarkInfo.OVER, 5, 15  , 7),
+                    new BenchmarkInfo("nim", "examples/game/nim-over.sp", "examples/game/nim.sk", BenchmarkInfo.OVER, 5, 15  , 7),
                     new BenchmarkInfo("temp", "examples/game/temp-over.sp", "examples/game/temp.sk", BenchmarkInfo.OVER, 5, 20, 7)
 
             )
@@ -165,7 +165,7 @@ public class RunBenchmarksMain {
                     new BenchmarkInfo("num1p", "examples/game/num1p-under.sp", "examples/game/num1p.sk", BenchmarkInfo.UNDER, 5, 10, 7),
                     new BenchmarkInfo("num2", "examples/game/num2-under.sp", "examples/game/num2.sk", BenchmarkInfo.UNDER, 5, 10, 7),
                     new BenchmarkInfo("rg", "examples/game/rg-under.sp", "examples/game/rg.sk", BenchmarkInfo.UNDER, 5, 10, 7),
-                    new BenchmarkInfo("nim2", "examples/game/nim2-under.sp", "examples/game/nim2.sk", BenchmarkInfo.UNDER, 5, 15  , 7),
+                    new BenchmarkInfo("nim", "examples/game/nim-under.sp", "examples/game/nim.sk", BenchmarkInfo.UNDER, 5, 15  , 7),
                     new BenchmarkInfo("temp", "examples/game/temp-under.sp", "examples/game/temp.sk", BenchmarkInfo.UNDER, 5, 20, 7)
             )
     );

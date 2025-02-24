@@ -1,0 +1,59 @@
+struct Strategy {
+    int[6][6] take;
+    int[6][6] id;
+}
+
+generator void genStrategy(ref Strategy P) {
+    int[6][6] take = {
+        {0, ??(3), ??(3), ??(3), ??(3), ??(3)},
+        {??(3), ??(3), ??(3), ??(3), ??(3), ??(3)},
+        {??(3), ??(3), ??(3), ??(3), ??(3), ??(3)},
+        {??(3), ??(3), ??(3), ??(3), ??(3), ??(3)},
+        {??(3), ??(3), ??(3), ??(3), ??(3), ??(3)},
+        {??(3), ??(3), ??(3), ??(3), ??(3), ??(3)}};
+    int[6][6] id = {
+        {0, 1, 1, 1, 1, 1},
+        {0, ??(1), ??(1), ??(1), ??(1), ??(1)},
+        {0, ??(1), ??(1), ??(1), ??(1), ??(1)},
+        {0, ??(1), ??(1), ??(1), ??(1), ??(1)},
+        {0, ??(1), ??(1), ??(1), ??(1), ??(1)},
+        {0, ??(1), ??(1), ??(1), ??(1), ??(1)}};
+    for(int i = 0; i < 6; i++)
+        for(int j = 0; j < 6; j++) {
+            if(id[i][j] == 0) {
+                if(i > 0) take[i][j] = take[i][j] % i + 1;
+            }
+            else {
+                if(j > 0) take[i][j] = take[i][j] % j + 1;
+            }
+        }
+    P = new Strategy(take = take, id = id);
+}
+
+void prog(Strategy P0, Strategy P1, int n0, int n1, ref boolean win) {
+    int[2] num = {n0, n1};
+    boolean turn = false;
+    for(int bnd = 10; bnd > 0; bnd--) {
+        if(num[0] <= 0 && num[1] <= 0) {
+            win = turn;
+            return ;
+        }
+        if(turn == false) { // Player 0
+            num[P0.id[num[0]][num[1]]] -= P0.take[num[0]][num[1]];
+        } else { // Player 1
+            num[P1.id[num[0]][num[1]]] -= P1.take[num[0]][num[1]];
+        }
+        turn = !turn;
+    }
+    win = true;
+}
+
+void forall(fun f, int n0, int n1, Strategy P, ref boolean ret) {
+    for(int i = 0; i <= n0; i++)
+        for(int j = 0; j <= n1; j++) {
+            if(!f(i, j, P.id[i][j], P.take[i][j])) {
+                    ret = false; return;
+            }
+        }
+    ret = true;
+}
