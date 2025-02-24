@@ -19,9 +19,9 @@ Run the following command in the directory with sketch jar file
 
 Then run the command `make jar` to generate a jar file.
 
-Now you can run the tool by the provided script `spyro`, e.g.
+Now you can run the tool by the provided script `aspire`, e.g.
 ```
-./spyro examples/toy/ex1-over.sp examples/toy/ex1.sk --synth-over
+./aspire examples/toy/ex1-over.sp examples/toy/ex1.sk --synth-over
 ```
 
 ### Useful flags
@@ -34,6 +34,13 @@ Now you can run the tool by the provided script `spyro`, e.g.
 - `--debug-dump-sketch`: Save every call to the sketch synthesizer.
 
 ## Running Aspire
+
+### Run Aspire for benchmark set
+
+One can run Aspire for the all benchmarks in our evaluation by running `./aspire-run-benchmark`.
+
+You can also add arguments `-1`, `-2`, `-3`, `-4` to run the benchmarks in each category. For example, `./aspire-run-benchmark -2` runs the benchmarks of incorrectness logic in section 7.2 of the paper.
+
 
 ### Understanding input format
 
