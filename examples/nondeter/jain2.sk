@@ -1,0 +1,29 @@
+struct NDArray {
+    int idx;
+    int[20] d;
+}
+
+generator void genNDArray(ref NDArray arr) {
+    arr = new NDArray(
+        idx = 0,
+        d = { ??(2), ??(2), ??(2), ??(2)
+            , ??(2), ??(2), ??(2), ??(2)
+            , ??(2), ??(2), ??(2), ??(2)
+            , ??(2), ??(2), ??(2), ??(2)
+            , ??(2), ??(2), ??(2), ??(2)});
+}
+
+int nondet(ref NDArray h) {
+    int ret = h.d[h.idx];
+    h.idx++;
+    return ret;
+}
+
+void prog(NDArray h, ref int x, ref int y) {
+    x = 1;
+    y = 1;
+    while(nondet(h) != 0) {
+        x = x + 2*nondet(h);
+        y = y + 2*nondet(h);
+    }
+}
