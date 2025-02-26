@@ -17,19 +17,24 @@ This is the artifact for paper #125 "LOUD: Synthesizing Strongest and Weakest Sp
 
 The artifact supports the following claims:
 
-TODO
 
+Test Set I: Aspire can synthesize the U-implicants for 35/35 deterministic benchmarks and guarantee all of them are the best U-disjunction.
+Test Set II: Aspire can synthesize both O-consequences and U-implicants for 14/15 nondeterministic benchmarks, and guarantee that all they are the best.
+Application 1: Aspire can synthesize L-weakest under-approximate postcondition and L-weakest possible precondition for 14 incorrectness logic problems.
+Application 2: Aspire can synthesize the best O-consequences and U-implicants for 9/9 problems about reasoning concurrent programs.
+Application 3: Aspire can synthesize the best O-consequences and U-implicants that can be interpreted as game strategies for 5/5 two-player game.
 
 ### Claims not supported by this artifact
 
-This artifact may not support some claims of the paper. Specifically, the running time and number of synthesized properties may be different to Tables 1-3.
+This artifact may not support some claims of the paper. Specifically, the running time and number of synthesized properties may be different to Tables 1-3, while the conjunction (for overapproximation) or disjunction (for underapproximation) of the synthesized properties are equivalent.
 
 
 #### Reason
 
 All the evaluation data of paper were generated from Apple M1 8-core CPU with 8GB RAM.
-Sketch binary compiled for different architecture / OS may produce different results.
-Aspire has a high variance in running time. To obtain reliable results, it is recommended to execute it with a minimum of three random seeds.
+Since different random seeds for Sketch solver will result in it selecting differenet examples/formulas, so Aspire can therefore generate different set of properties with different seeds.
+Aspire may have a high variance in running time for the same reason as above. Additionally, Sketch binary compiled for different architecture / OS may produce different results.
+To obtain reliable results, it is recommended to execute it with a minimum of three random seeds.
 
 ## Setup
 
@@ -80,7 +85,11 @@ This Docker command will drop you into a container shell with all the requiremen
 
 ## Structure of docker image
 
-TODO
+- `src` contains codes for Aspire.
+
+- `examples` contains benchmarks.
+
+- `make_tables` contains sciprts to generate tables in the same format as those in the paper from experiment data.
 
 
 ## Local Setup
