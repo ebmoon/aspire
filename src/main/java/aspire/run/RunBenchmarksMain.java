@@ -75,7 +75,7 @@ public class RunBenchmarksMain {
                     new BenchmarkInfo("shuffle5", "examples/nondeter/shuffle5.sp", "examples/nondeter/shuffle5.sk", BenchmarkInfo.OVER, 5, 16, 7),
                     new BenchmarkInfo("rsum", "examples/nondeter/rsum-over.sp", "examples/nondeter/rsum.sk", BenchmarkInfo.OVER, 10, 5, 7),
                     new BenchmarkInfo("rsquaresum", "examples/nondeter/rsquaresum-over.sp", "examples/nondeter/rsquaresum.sk", BenchmarkInfo.OVER, 10, 5, 7),
-                    new BenchmarkInfo("rcubicsum", "examples/nondeter/rcubicsum-over.sp", "examples/nondeter/rcubicsum.sk", BenchmarkInfo.OVER, 10, 5, 7),
+                    new BenchmarkInfo("rcubicsum", "examples/nondeter/rcubicsum-over.sp", "examples/nondeter/rcubicsum.sk", BenchmarkInfo.OVER, 10, 5, 10),
                     new BenchmarkInfo("jain1", "examples/nondeter/jain1-over.sp", "examples/nondeter/jain1.sk", BenchmarkInfo.OVER,5, 10, 7),
                     new BenchmarkInfo("jain2", "examples/nondeter/jain2-over.sp", "examples/nondeter/jain2.sk", BenchmarkInfo.OVER,5, 10, 7),
                     new BenchmarkInfo("jain4", "examples/nondeter/jain4-over.sp", "examples/nondeter/jain4.sk", BenchmarkInfo.OVER,5, 10, 7),
@@ -94,7 +94,7 @@ public class RunBenchmarksMain {
                     new BenchmarkInfo("shuffle5", "examples/nondeter/shuffle5.sp", "examples/nondeter/shuffle5.sk", BenchmarkInfo.UNDER, 5, 16, 7),
                     new BenchmarkInfo("rsum", "examples/nondeter/rsum-under.sp", "examples/nondeter/rsum.sk", BenchmarkInfo.UNDER, 10, 5, 7),
                     new BenchmarkInfo("rsquaresum", "examples/nondeter/rsquaresum-under.sp", "examples/nondeter/rsquaresum.sk", BenchmarkInfo.UNDER, 10, 5, 7),
-                    new BenchmarkInfo("rcubicsum", "examples/nondeter/rcubicsum-under.sp", "examples/nondeter/rcubicsum.sk", BenchmarkInfo.UNDER, 10, 5, 7),
+                    new BenchmarkInfo("rcubicsum", "examples/nondeter/rcubicsum-under.sp", "examples/nondeter/rcubicsum.sk", BenchmarkInfo.UNDER, 10, 5, 10),
                     new BenchmarkInfo("jain1", "examples/nondeter/jain1-under.sp", "examples/nondeter/jain1.sk", BenchmarkInfo.UNDER,5, 10, 7),
                     new BenchmarkInfo("jain2", "examples/nondeter/jain2-under.sp", "examples/nondeter/jain2.sk", BenchmarkInfo.UNDER,5, 10, 7),
                     new BenchmarkInfo("jain4", "examples/nondeter/jain4-under.sp", "examples/nondeter/jain4.sk", BenchmarkInfo.UNDER,5, 10, 7),
@@ -192,17 +192,16 @@ public class RunBenchmarksMain {
 
     static List<BenchmarkInfo> listUnder = new ArrayList<>(
             Arrays.asList(
-                    new BenchmarkInfo("append", "examples/spec/list/append-under.sp", "examples/spec/list/append.sk", BenchmarkInfo.UNDER, 10,5, 7),
-                    new BenchmarkInfo("delete", "examples/spec/list/delete-under.sp", "examples/spec/list/delete.sk", BenchmarkInfo.UNDER, 10,5, 7),
-                    new BenchmarkInfo("deleteFirst", "examples/spec/list/deleteFirst-under.sp", "examples/spec/list/deleteFirst.sk", BenchmarkInfo.UNDER, 10,5, 7),
-                    new BenchmarkInfo("drop", "examples/spec/list/drop-under.sp", "examples/spec/list/drop.sk", BenchmarkInfo.UNDER, 10,5, 7),
+//                    new BenchmarkInfo("append", "examples/spec/list/append-under.sp", "examples/spec/list/append.sk", BenchmarkInfo.UNDER, 10,5, 7),
+//                    new BenchmarkInfo("delete", "examples/spec/list/delete-under.sp", "examples/spec/list/delete.sk", BenchmarkInfo.UNDER, 10,5, 7),
+//                    new BenchmarkInfo("deleteFirst", "examples/spec/list/deleteFirst-under.sp", "examples/spec/list/deleteFirst.sk", BenchmarkInfo.UNDER, 10,5, 7),
+//                    new BenchmarkInfo("drop", "examples/spec/list/drop-under.sp", "examples/spec/list/drop.sk", BenchmarkInfo.UNDER, 10,5, 7),
                     new BenchmarkInfo("elem", "examples/spec/list/elem-under.sp", "examples/spec/list/elem.sk", BenchmarkInfo.UNDER, 10,5, 7),
                     new BenchmarkInfo("elemIndex", "examples/spec/list/elemIndex-under.sp", "examples/spec/list/elemIndex.sk", BenchmarkInfo.UNDER, 10,5, 7),
                     new BenchmarkInfo("ith", "examples/spec/list/ith-under.sp", "examples/spec/list/ith.sk", BenchmarkInfo.UNDER, 10,5, 7),
                     new BenchmarkInfo("min", "examples/spec/list/min-under.sp", "examples/spec/list/min.sk", BenchmarkInfo.UNDER, 10, 5,7),
                     new BenchmarkInfo("replicate", "examples/spec/list/replicate-under.sp", "examples/spec/list/replicate.sk", BenchmarkInfo.UNDER, 10,5, 7),
                     new BenchmarkInfo("reverse", "examples/spec/list/reverse-under.sp", "examples/spec/list/reverse.sk", BenchmarkInfo.UNDER, 10, 5, 7),
-                    new BenchmarkInfo("reverse2", "examples/spec/list/reverse2-under.sp", "examples/spec/list/reverse.sk", BenchmarkInfo.UNDER, 10,5,  7),
                     new BenchmarkInfo("snoc", "examples/spec/list/snoc-under.sp", "examples/spec/list/snoc.sk", BenchmarkInfo.UNDER, 10, 5, 7),
                     new BenchmarkInfo("shutter", "examples/spec/list/stutter-under.sp", "examples/spec/list/stutter.sk", BenchmarkInfo.UNDER, 10, 5, 7),
                     new BenchmarkInfo("take", "examples/spec/list/take-under.sp", "examples/spec/list/take.sk", BenchmarkInfo.UNDER, 10, 5, 7)
@@ -221,7 +220,6 @@ public class RunBenchmarksMain {
                     new BenchmarkInfo("min", "examples/spec/list/min.sp", "examples/spec/list/min.sk", BenchmarkInfo.OLD_OVER, 10,5, 7),
                     new BenchmarkInfo("replicate", "examples/spec/list/replicate.sp", "examples/spec/list/replicate.sk", BenchmarkInfo.OLD_OVER, 10, 5,7),
                     new BenchmarkInfo("reverse", "examples/spec/list/reverse.sp", "examples/spec/list/reverse.sk", BenchmarkInfo.OLD_OVER, 10,5, 7),
-                    new BenchmarkInfo("reverse2", "examples/spec/list/reverse2.sp", "examples/spec/list/reverse.sk", BenchmarkInfo.OLD_OVER, 10,5, 7),
                     new BenchmarkInfo("snoc", "examples/spec/list/snoc.sp", "examples/spec/list/snoc.sk", BenchmarkInfo.OLD_OVER, 10, 5,7),
                     new BenchmarkInfo("shutter", "examples/spec/list/shutter.sp", "examples/spec/list/shutter.sk", BenchmarkInfo.OLD_OVER, 10, 5,7),
                     new BenchmarkInfo("take", "examples/spec/list/take.sp", "examples/spec/list/take.sk", BenchmarkInfo.OLD_OVER, 10,5, 7)
@@ -339,7 +337,7 @@ public class RunBenchmarksMain {
         try (FileWriter fwCSV = new FileWriter(resultDir + fileName + ".csv");
              FileWriter fwProperties = new FileWriter(resultDir + fileName + ".txt")) {
 
-            fwCSV.write("Name,Loc,"+RunningResults.toCSVHead(verbose)+"\n");
+            fwCSV.write("Name,LoC,"+RunningResults.toCSVHead(verbose)+"\n");
 
             for (BenchmarkInfo args : info) {
                 System.out.println("Running " + args.getName() + (args.propertyType == 1 ? " under" : " over"));
