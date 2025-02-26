@@ -137,10 +137,10 @@ Aspire takes 2 files as input (typically `.sp` and `.sk`). The `.sp` file declar
 Take `examples/toy/ex1` as an example, it concerns a program that takes an integer as input and non-deterministically adds an even number to it. Formally, the program is defined as $x_{out} = f(x,\mathrm h)$, where $f(x,\mathrm h) := x + 2\mathrm h$. Here the integer $\mathrm h$ is regarded as a nondeterministic choice.
 
 To synthesize $\mathcal L$-consequences for `ex1`, one can run 
-`./spyro examples/toy/ex1-over.sp examples/toy/ex1.sk --synth-over`
+`./spyro examples/toy/ex1-under.sp examples/toy/ex1.sk --synth-over`
 
 To synthesize $\mathcal L$-implicants, one can run 
-`./spyro examples/toy/ex1-over.sp examples/toy/ex1.sk --synth-under`
+`./spyro examples/toy/ex1-under.sp examples/toy/ex1.sk --synth-under`
 
 #### `.sp` input file
 
