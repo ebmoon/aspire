@@ -78,13 +78,20 @@ public class RunningResults implements Comparable<RunningResults>{
         str += "Max Number of Hidden Witness = " + numHiddenWitness + "\n";
         return str;
     }
-    public String toCSV() {
-        return String.format("%d, %d", properties.getProperties().size(), runningTime);
+    public String toCSV(boolean verbose) {
+        if (verbose) {
+            BigDecimal sizeDecimal = new BigDecimal(grammarSize);
+            DecimalFormat df = new DecimalFormat("0.##E0");
+            return String.format("%s,%d,%d,%.2f,%d,%.2f,%d,%.2f,%.2f", df.format(sizeDecimal), properties.getProperties().size(), numSoundness, timeSoundness/1000.0, numPrecision, timePrecision/1000.0, numSynthesis, timeSynthesis/1000.0, runningTime/1000.0);
+        }
+        return String.format("%d,%d", properties.getProperties().size(), runningTime);
     }
-    public String toCSVOld() {
-        BigDecimal sizeDecimal = new BigDecimal(grammarSize);
-        DecimalFormat df = new DecimalFormat("0.######E0");
-        return String.format("%s, %d, %d, %d, %d, %d, %d, %d, %d", df.format(sizeDecimal), runningTime, numSoundness, timeSoundness, numPrecision, timePrecision, numSynthesis, timeSynthesis, numHiddenWitness);
+
+    static public String toCSVHead(boolean verbose) {
+        if (verbose) {
+            return "|Grammar|,#Props,CINum,CITime,CPNum,CPTime,SynNum,SynTime,Total";
+        }
+        return "#Props,Time";
     }
 
 

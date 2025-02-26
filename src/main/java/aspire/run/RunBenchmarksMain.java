@@ -37,8 +37,8 @@ public class RunBenchmarksMain {
             Arrays.asList(
                     new BenchmarkInfo("max2", "examples/spec/sygus/max2-under.sp", "examples/spec/sygus/max2.sk", BenchmarkInfo.UNDER),
                     new BenchmarkInfo("max3", "examples/spec/sygus/max3-under.sp", "examples/spec/sygus/max3.sk", BenchmarkInfo.UNDER),
-//                    new BenchmarkInfo("max4", "examples/spec/sygus/max4-under.sp", "examples/spec/sygus/max4.sk", BenchmarkInfo.UNDER),
-//                    new BenchmarkInfo("max5", "examples/spec/sygus/max5-under.sp", "examples/spec/sygus/max5.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("max4", "examples/spec/sygus/max4-under.sp", "examples/spec/sygus/max4.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("max5", "examples/spec/sygus/max5-under.sp", "examples/spec/sygus/max5.sk", BenchmarkInfo.UNDER),
                     new BenchmarkInfo("array_search_2", "examples/spec/sygus/array_search_2-under.sp", "examples/spec/sygus/array_search_2.sk", BenchmarkInfo.UNDER),
                     new BenchmarkInfo("array_search_3", "examples/spec/sygus/array_search_3-under.sp", "examples/spec/sygus/array_search_3.sk", BenchmarkInfo.UNDER),
                     new BenchmarkInfo("diff", "examples/spec/sygus/diff-under.sp", "examples/spec/sygus/diff.sk", BenchmarkInfo.UNDER),
@@ -306,48 +306,43 @@ public class RunBenchmarksMain {
 
         if (run1) {
             // 1 - 1
-//            runBenchmarksMain.writeCSV("specOver", specOver, true);
-            runBenchmarksMain.writeCSV("specUnder", specUnder, true);
-//            runBenchmarksMain.writeCSV("listOver", listOver, true);
-            runBenchmarksMain.writeCSV("listUnder", listUnder, true);
-//            runBenchmarksMain.writeCSV("queueOver", queueOver, true);
-            runBenchmarksMain.writeCSV("queueUnder", queueUnder, true);
-//            runBenchmarksMain.writeCSV("stackOver", stackOver, true);
-            runBenchmarksMain.writeCSV("stackUnder", stackUnder, true);
+            runBenchmarksMain.writeCSV("SpyroTest1", specUnder, true,true);
+            runBenchmarksMain.writeCSV("SpyroTest2", listUnder, true,true);
+            runBenchmarksMain.writeCSV("SpyroTest3", queueUnder, true,true);
+            runBenchmarksMain.writeCSV("SpyroTest4", stackUnder, true,true);
 
             // 1 - 2
-            runBenchmarksMain.writeCSV("NondeterUnder", nondeterUnder, true);
-            runBenchmarksMain.writeCSV("NondeterOver", nondeterOver, true);
+            runBenchmarksMain.writeCSV("NDTestUnder", nondeterUnder, true,false);
+            runBenchmarksMain.writeCSV("NDTestOver", nondeterOver, true,false);
         }
 
 
         if(run2) {  // 2
-            runBenchmarksMain.writeCSV("IncLogic", incLogic, true);
+            runBenchmarksMain.writeCSV("IncLogic", incLogic, true,false);
         }
 
         if(run3){ // 3
-            runBenchmarksMain.writeCSV("ConcurrencyUnder", concurrencyUnder, true);
-            runBenchmarksMain.writeCSV("ConcurrencyOver", concurrencyOver,true);
+            runBenchmarksMain.writeCSV("ConcurrencyUnder", concurrencyUnder, true,false);
+            runBenchmarksMain.writeCSV("ConcurrencyOver", concurrencyOver,true,false);
         }
 
         if(run4) { // 4
-            runBenchmarksMain.writeCSV("GameOver", gameOver, true);
-            runBenchmarksMain.writeCSV("GameUnder", gameUnder, true);
+            runBenchmarksMain.writeCSV("GameOver", gameOver, true,false);
+            runBenchmarksMain.writeCSV("GameUnder", gameUnder, true,false);
         }
     }
 
 
-    public void writeCSV(String fileName, List<BenchmarkInfo> info, boolean reuse) {
+    public void writeCSV(String fileName, List<BenchmarkInfo> info, boolean reuse, boolean verbose) {
         final RunBenchmarksMain runBenchmarksMain = new RunBenchmarksMain();
 
         try (FileWriter fwCSV = new FileWriter(resultDir + fileName + ".csv");
              FileWriter fwProperties = new FileWriter(resultDir + fileName + ".txt")) {
 
-//            fwCSV.write("Name, GrammarSize, Time, SoundnessNum, SoundnessTime, PrecisionNum, PrecisionTime, SynthesisNum, SynthesisTime, numHiddenWitness\n");
-            fwCSV.write("Name, LoC, #Props, Time\n");
+            fwCSV.write("Name,Loc,"+RunningResults.toCSVHead(verbose)+"\n");
 
             for (BenchmarkInfo args : info) {
-                System.out.println("Running " + args.getName());
+                System.out.println("Running " + args.getName() + (args.propertyType == 1 ? " under" : " over"));
 //                RunningResults results = runBenchmarksMain.runWithinTime(args, reuse, 5);
                 RunningResults results = runBenchmarksMain.run(args.toStringArray(reuse));
 //                RunningResults results = runBenchmarksMain.runMedian(args.toStringArray(reuse), 3);
@@ -356,11 +351,10 @@ public class RunBenchmarksMain {
                 long lineCount = Files.lines(filePath).count();
 
                 if (results != null) {
-                    fwCSV.write(String.format("%s, %d, %s\n", args.getName(), lineCount, results.toCSV()));
+                    fwCSV.write(String.format("%s,%d,%s\n", args.getName(), lineCount, results.toCSV(verbose)));
                     fwCSV.flush();
                     fwProperties.write(String.format("Benchmark %s:\n %s \n\n", args.getName(), results));
                     fwProperties.flush();
-//                    System.out.println(results.toCSV());
                 } else {
                     fwCSV.write(String.format("%s, Timeout\n", args.getName()));
                     fwCSV.flush();
