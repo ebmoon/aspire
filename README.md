@@ -18,11 +18,15 @@ This is the artifact for paper #125 "LOUD: Synthesizing Strongest and Weakest Sp
 The artifact supports the following claims:
 
 
-Test Set I: Aspire can synthesize the U-implicants for 35/35 deterministic benchmarks and guarantee all of them are the best U-disjunction.
-Test Set II: Aspire can synthesize both O-consequences and U-implicants for 14/15 nondeterministic benchmarks, and guarantee that all they are the best.
-Application 1: Aspire can synthesize L-weakest under-approximate postcondition and L-weakest possible precondition for 14 incorrectness logic problems.
-Application 2: Aspire can synthesize the best O-consequences and U-implicants for 9/9 problems about reasoning concurrent programs.
-Application 3: Aspire can synthesize the best O-consequences and U-implicants that can be interpreted as game strategies for 5/5 two-player game.
+- Test Set I: Aspire can synthesize the U-implicants for 35/35 deterministic benchmarks and guarantee all of them are the best U-disjunction.
+
+- Test Set II: Aspire can synthesize both O-consequences and U-implicants for 14/15 nondeterministic benchmarks, and guarantee that all they are the best.
+
+- Application 1: Aspire can synthesize L-weakest under-approximate postcondition and L-weakest possible precondition for 14 incorrectness logic problems.
+
+- Application 2: Aspire can synthesize the best O-consequences and U-implicants for 9/9 problems about reasoning concurrent programs.
+
+- Application 3: Aspire can synthesize the best O-consequences and U-implicants that can be interpreted as game strategies for 5/5 two-player game.
 
 ### Claims not supported by this artifact
 
