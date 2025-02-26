@@ -18,6 +18,6 @@ language {
 
 examples {
     int IEX1 -> ??(4);
-    int IEX2 -> ??(5);
+    int IEX2 -> ??(5) | -??(5);
     NDArray NDArrayEX -> genNDArray();
 }
