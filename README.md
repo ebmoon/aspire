@@ -37,10 +37,11 @@ Now you can run the tool by the provided script `aspire`, e.g.
 
 ### Run Aspire for benchmark set
 
-One can run Aspire for the all benchmarks in our evaluation by running `./aspire-run-benchmark`.
+One can run Aspire for the all benchmarks in our evaluation by running `./aspire-run-benchmark`.  The results will be stored in the `result/` directory. The `*.csv` files contain runtime data for each benchmark, while the `*.txt` files provide additional details, including synthesized properties.
 
-You can also add arguments `-1`, `-2`, `-3`, `-4` to run the benchmarks in each category. For example, `./aspire-run-benchmark -2` runs the benchmarks of incorrectness logic in section 7.2 of the paper.
+You can specify `-1`, `-2`, `-3`, or `-4` to run benchmarks from specific categories. For example, .`/aspire-run-benchmark -2` runs the benchmarks for incorrectness logic, as described in Section 7.2 of the paper.
 
+Additionally, we provide scripts to generate three tables in the same format as those in the paper. For instance, running `make table1` will produce Table 1 from the paper.
 
 ### Understanding input format
 
