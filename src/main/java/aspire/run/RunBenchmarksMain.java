@@ -135,14 +135,14 @@ public class RunBenchmarksMain {
             Arrays.asList(
                     new BenchmarkInfo("remwupo", "examples/inclogic/remwpp.sp", "examples/inclogic/remhash.sk", BenchmarkInfo.UNDER,5, 10, 7),
                     new BenchmarkInfo("remwpp", "examples/inclogic/remwupo.sp", "examples/inclogic/remhash.sk", BenchmarkInfo.UNDER,5, 10, 7),
-                    new BenchmarkInfo("inc-logic1", "examples/inclogic/inc-logic1.sp", "examples/inclogic/inc-logic1.sk", BenchmarkInfo.UNDER),
-                    new BenchmarkInfo("inc-logic2", "examples/inclogic/inc-logic2.sp", "examples/inclogic/inc-logic2.sk", BenchmarkInfo.UNDER),
-                    new BenchmarkInfo("inc-logic3", "examples/inclogic/inc-logic3.sp", "examples/inclogic/inc-logic3.sk", BenchmarkInfo.UNDER),
-                    new BenchmarkInfo("inc-logic-wpp1", "examples/inclogic/inc-logic-wpp1.sp", "examples/inclogic/inc-logic-wpp1.sk", BenchmarkInfo.UNDER),
-                    new BenchmarkInfo("inc-logic-wpp2", "examples/inclogic/inc-logic-wpp2.sp", "examples/inclogic/inc-logic-wpp2.sk", BenchmarkInfo.UNDER),
-                    new BenchmarkInfo("inc-logic-wpp3", "examples/inclogic/inc-logic-wpp3.sp", "examples/inclogic/inc-logic-wpp3.sk", BenchmarkInfo.UNDER),
-                    new BenchmarkInfo("arith1-wr", "examples/inclogic/arith1-wr.sp", "examples/inclogic/arith1-wr.sk", BenchmarkInfo.UNDER),
-                    new BenchmarkInfo("arith2-wr", "examples/inclogic/arith2-wr.sp", "examples/inclogic/arith2-wr.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("inc-logic1-wupo", "examples/inclogic/inc-logic1.sp", "examples/inclogic/inc-logic1.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("inc-logic2-wupo", "examples/inclogic/inc-logic2.sp", "examples/inclogic/inc-logic2.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("inc-logic3-wupo", "examples/inclogic/inc-logic3.sp", "examples/inclogic/inc-logic3.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("inc-logic1-wpp", "examples/inclogic/inc-logic-wpp1.sp", "examples/inclogic/inc-logic-wpp1.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("inc-logic2-wpp", "examples/inclogic/inc-logic-wpp2.sp", "examples/inclogic/inc-logic-wpp2.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("inc-logic3-wpp", "examples/inclogic/inc-logic-wpp3.sp", "examples/inclogic/inc-logic-wpp3.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("arith1-wupo", "examples/inclogic/arith1-wr.sp", "examples/inclogic/arith1-wr.sk", BenchmarkInfo.UNDER),
+                    new BenchmarkInfo("arith2-wupo", "examples/inclogic/arith2-wr.sp", "examples/inclogic/arith2-wr.sk", BenchmarkInfo.UNDER),
                     new BenchmarkInfo("arith1-wpp", "examples/inclogic/arith1-wpp.sp", "examples/inclogic/arith1-wpp.sk", BenchmarkInfo.UNDER),
                     new BenchmarkInfo("arith2-wpp", "examples/inclogic/arith2-wpp.sp", "examples/inclogic/arith2-wpp.sk", BenchmarkInfo.UNDER),
                     new BenchmarkInfo("hashcoll", "examples/inclogic/hashcoll.sp", "examples/inclogic/hashcoll.sk", BenchmarkInfo.UNDER, 5, 10, 7),
@@ -152,7 +152,7 @@ public class RunBenchmarksMain {
     );
     static List<BenchmarkInfo> gameOver = new ArrayList<>(
             Arrays.asList(
-                    new BenchmarkInfo("num1p", "examples/game/num1p-over.sp", "examples/game/num1p.sk", BenchmarkInfo.OVER, 5, 10, 7),
+                    new BenchmarkInfo("num1", "examples/game/num1p-over.sp", "examples/game/num1p.sk", BenchmarkInfo.OVER, 5, 10, 7),
                     new BenchmarkInfo("num2", "examples/game/num2-over.sp", "examples/game/num2.sk", BenchmarkInfo.OVER, 5, 10, 7),
                     new BenchmarkInfo("rg", "examples/game/rg-over.sp", "examples/game/rg.sk", BenchmarkInfo.OVER, 5, 10, 7),
                     new BenchmarkInfo("nim", "examples/game/nim-over.sp", "examples/game/nim.sk", BenchmarkInfo.OVER, 5, 15  , 7),
