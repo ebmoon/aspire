@@ -12,10 +12,10 @@ parser:
 	cd src/main/antlr/spyro/compiler/parser && $(PARSER) Spyro.g4 -o ../../../../java/aspire/compiler/parser/ -visitor -no-listener
 
 table1:
-	python make_tables/make_table1.py
+	python3 make_tables/make_table1.py
 
 table2:
-	python make_tables/make_table2.py
+	python3 make_tables/make_table2.py
 
 table3:
-	python make_tables/make_table3.py
+	python3 make_tables/make_table3.py
